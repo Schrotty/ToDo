@@ -1,4 +1,5 @@
 package de.swtproject.todo;
 
-public class Main {
+public class Main (String[] args){
+    
 }
