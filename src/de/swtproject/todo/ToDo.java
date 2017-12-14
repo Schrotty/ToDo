@@ -6,5 +6,6 @@ public class ToDo {
         // finde ich doof
         boolean martin = true;
         if (martin) System.out.println("Er tut nichts!");
+        System.out.println("Jannik ist fiel doffer!");
     }
 }
