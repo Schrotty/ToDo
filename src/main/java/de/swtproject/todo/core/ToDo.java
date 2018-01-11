@@ -1,5 +1,6 @@
 package de.swtproject.todo.core;
 
+import com.j256.ormlite.field.DataType;
 import com.j256.ormlite.field.DatabaseField;
 import com.j256.ormlite.table.DatabaseTable;
 
@@ -17,7 +18,7 @@ public class ToDo {
     @DatabaseField(canBeNull = true)
     private String description;
 
-    @DatabaseField(canBeNull = true)
+    @DatabaseField(canBeNull = true, dataType = DataType.ENUM_STRING) //TODO: Change to ENUM_INTEGER and add table
     private IntervalType interval;
 
     @DatabaseField(defaultValue = "true")
@@ -40,8 +41,8 @@ public class ToDo {
         this.title = title;
     }
 
-    public ToDo(String titel, String description) {
-        this(titel);
+    public ToDo(String title, String description) {
+        this(title);
         this.description = description;
     }
 
@@ -98,7 +99,36 @@ public class ToDo {
         this.notifyPoint = notifyPoint;
     }
 
-    public void save(String titel, String description, Date start, Date deadline, Date notifypoint) {
-      //save todo
+    /**
+     * Create a new {@link ToDo} with given title.
+     *
+     * @param title the given title
+     * @return the created todo
+     */
+    public static ToDo create(String title) {
+        return new ToDo(title);
+    }
+
+    /**
+     * Create a new {@link ToDo} with given title and description.
+     *
+     * @param title the given title
+     * @param description the given description
+     * @return the created todo
+     */
+    public static ToDo create(String title, String description) {
+        return new ToDo(title, description);
+    }
+
+    /**
+     * Create a new {@link ToDo} with given title, description and interval.
+     *
+     * @param title the given title
+     * @param description the given description
+     * @param interval the given interval
+     * @return the created todo
+     */
+    public static ToDo create(String title, String description, IntervalType interval) {
+        return new ToDo(title, description, interval);
     }
 }

@@ -1,6 +1,4 @@
 # Compiled class file
-*.class
-
 # Log file
 *.log
 
@@ -23,5 +21,7 @@ hs_err_pid*
 /.idea/uiDesigner.xml
 /.idea/
 /src/main/resources/database.db
-*.lst
 *.db
+/data/
+/target/
+/out/

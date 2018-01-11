@@ -5,11 +5,10 @@ import com.j256.ormlite.dao.DaoManager;
 import com.j256.ormlite.jdbc.JdbcConnectionSource;
 import com.j256.ormlite.support.ConnectionSource;
 import com.j256.ormlite.table.TableUtils;
-import de.swtproject.todo.core.IntervalType;
 import de.swtproject.todo.core.ToDo;
 import de.swtproject.todo.util.Settings;
 
-import java.io.IOException;
+import java.io.File;
 import java.sql.SQLException;
 import java.util.Collection;
 
@@ -34,29 +33,17 @@ public class DatabaseManager {
     private Dao<ToDo,String> todoAccess;
 
     /**
-     * The database access object used by the manager.
-     */
-    private Dao<IntervalType, String> intervallAccess;
-
-    /**
      * DatabaseManager singleton.
      */
-    private static DatabaseManager databaseManager = new DatabaseManager();
-
-    /**
-     * Get the database manager.
-     *
-     * @return the database manager
-     */
-    public static DatabaseManager getManager() {
-        return databaseManager;
-    }
+    private static DatabaseManager self = new DatabaseManager();
 
     /**
      * Constructor for a new DatabaseManager
      */
     private DatabaseManager() {
         try {
+            createDataDirIfMissing(); //see ya in /dev/null for that name...
+
             connectionSource = new JdbcConnectionSource(Settings.getConnectionString().intern());
             todoAccess = DaoManager.createDao(connectionSource, ToDo.class);
 
@@ -64,16 +51,39 @@ public class DatabaseManager {
             TableUtils.createTableIfNotExists(connectionSource, ToDo.class);
         } catch (SQLException e) {
             e.printStackTrace();
+        } catch (IllegalStateException exception) {
+            System.out.println(exception.getMessage());
         }
     }
 
     /**
-     * Close the used connection source.
-     *
-     * @throws IOException on I/O exception
+     * Create the data directory if it's missing
      */
-    public void destroy() throws IOException {
-        connectionSource.close();
+    private void createDataDirIfMissing() throws IllegalStateException {
+        File directory = new File(Settings.getDataDir());
+        if (!directory.exists()) {
+            if(!directory.mkdir()) throw new IllegalStateException("data directory not created!");
+        }
+    }
+
+    /**
+     * Clear all tables in database.
+     *
+     * @throws SQLException if exception is thrown
+     */
+    public static void phoenix() throws SQLException {
+        //drop all tables
+        TableUtils.dropTable(self.connectionSource, ToDo.class, true);
+
+        //re-create all tables with fresh indices
+        TableUtils.createTableIfNotExists(self.connectionSource, ToDo.class);
+    }
+
+    /**
+     * Close the used connection source.
+     */
+    public static void destroy() {
+        self.connectionSource.closeQuietly();
     }
 
     /**
@@ -82,19 +92,18 @@ public class DatabaseManager {
      * @param todo the object to save
      * @throws SQLException on SQL exception
      */
-    public void saveToDo(ToDo todo) throws SQLException {
-        todoAccess.createIfNotExists(todo);
+    public static void saveToDo(ToDo todo) throws SQLException {
+        self.todoAccess.createIfNotExists(todo);
     }
 
     /**
      * Saves a collection of objects
      *
      * @param collection the collections to save
-     * @return the status
      * @throws SQLException on SQL exception
      */
-    public int saveToDos(Collection<ToDo> collection) throws SQLException {
-        return todoAccess.create(collection);
+    public static void saveToDoCollection(Collection<ToDo> collection) throws SQLException {
+        self.todoAccess.create(collection);
     }
 
     /**
@@ -104,8 +113,8 @@ public class DatabaseManager {
      * @return the loaded object
      * @throws SQLException on SQL exception
      */
-    public ToDo loadToDo(int id) throws SQLException {
-        return todoAccess.queryForId(Integer.toString(id));
+    public static ToDo getSingleToDo(int id) throws SQLException {
+        return self.todoAccess.queryForId(Integer.toString(id));
     }
 
     /**
@@ -114,7 +123,7 @@ public class DatabaseManager {
      * @return the loaded objects
      * @throws SQLException on SQL exceptions
      */
-    public Collection<ToDo> loadAllToDo() throws SQLException {
-        return todoAccess.queryForAll();
+    public static Collection<ToDo> getToDoCollection() throws SQLException {
+        return self.todoAccess.queryForAll();
     }
 }
