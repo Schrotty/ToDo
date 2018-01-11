@@ -1,8 +1,7 @@
 # Compiled class file
-*.class
-
 # Log file
 *.log
+
 
 # BlueJ files
 *.ctxt
@@ -23,5 +22,7 @@ hs_err_pid*
 /.idea/uiDesigner.xml
 /.idea/
 /src/main/resources/database.db
-*.lst
 *.db
+/data/
+/target/
+/out/

@@ -48,7 +48,21 @@ public class Settings {
         return properties.getProperty(key);
     }
 
+    /**
+     * Get the jdbc connection string.
+     *
+     * @return the connection string
+     */
     public static String getConnectionString() {
         return self.get("conString");
+    }
+
+    /**
+     * Get the path for the data directory.
+     *
+     * @return the data dir path
+     */
+    public static String getDataDir() {
+        return self.get("dataDir");
     }
 }
