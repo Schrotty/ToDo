@@ -5,6 +5,7 @@ import com.j256.ormlite.dao.DaoManager;
 import com.j256.ormlite.jdbc.JdbcConnectionSource;
 import com.j256.ormlite.support.ConnectionSource;
 import com.j256.ormlite.table.TableUtils;
+import de.swtproject.todo.core.IntervalType;
 import de.swtproject.todo.core.ToDo;
 import de.swtproject.todo.util.Settings;
 
@@ -30,7 +31,12 @@ public class DatabaseManager {
     /**
      * The database access object used by the manager.
      */
-    private Dao<ToDo,String> databaseAccess;
+    private Dao<ToDo,String> todoAccess;
+
+    /**
+     * The database access object used by the manager.
+     */
+    private Dao<IntervalType, String> intervallAccess;
 
     /**
      * DatabaseManager singleton.
@@ -51,11 +57,10 @@ public class DatabaseManager {
      */
     private DatabaseManager() {
         try {
-            String conString = Settings.getConnectionString().intern();
+            connectionSource = new JdbcConnectionSource(Settings.getConnectionString().intern());
+            todoAccess = DaoManager.createDao(connectionSource, ToDo.class);
 
-            connectionSource = new JdbcConnectionSource(conString);
-            databaseAccess = DaoManager.createDao(connectionSource, ToDo.class);
-
+            //create needed tables
             TableUtils.createTableIfNotExists(connectionSource, ToDo.class);
         } catch (SQLException e) {
             e.printStackTrace();
@@ -78,7 +83,7 @@ public class DatabaseManager {
      * @throws SQLException on SQL exception
      */
     public void saveToDo(ToDo todo) throws SQLException {
-        databaseAccess.createIfNotExists(todo);
+        todoAccess.createIfNotExists(todo);
     }
 
     /**
@@ -89,7 +94,7 @@ public class DatabaseManager {
      * @throws SQLException on SQL exception
      */
     public int saveToDos(Collection<ToDo> collection) throws SQLException {
-        return databaseAccess.create(collection);
+        return todoAccess.create(collection);
     }
 
     /**
@@ -99,8 +104,8 @@ public class DatabaseManager {
      * @return the loaded object
      * @throws SQLException on SQL exception
      */
-    public ToDo loadToDo(String id) throws SQLException {
-        return databaseAccess.queryForId(id);
+    public ToDo loadToDo(int id) throws SQLException {
+        return todoAccess.queryForId(Integer.toString(id));
     }
 
     /**
@@ -110,6 +115,6 @@ public class DatabaseManager {
      * @throws SQLException on SQL exceptions
      */
     public Collection<ToDo> loadAllToDo() throws SQLException {
-        return databaseAccess.queryForAll();
+        return todoAccess.queryForAll();
     }
 }

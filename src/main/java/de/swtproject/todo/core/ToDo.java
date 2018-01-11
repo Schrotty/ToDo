@@ -8,32 +8,54 @@ import java.util.Date;
 @DatabaseTable(tableName = "todo")
 public class ToDo {
 
-    @DatabaseField(id = true)
-    private String titel;
+    @DatabaseField(generatedId = true)
+    private int id;
 
     @DatabaseField
+    private String title;
+
+    @DatabaseField(canBeNull = true)
     private String description;
 
-    private Period interval;
+    @DatabaseField(canBeNull = true)
+    private IntervalType interval;
+
+    @DatabaseField(defaultValue = "true")
+    private Boolean production;
+
+    @DatabaseField(canBeNull = true)
     private Date start;
+
+    @DatabaseField(canBeNull = true)
     private Date deadline;
+
+    @DatabaseField(canBeNull = true)
     private Date notifyPoint;
 
     ToDo() {
         //needed for ORMLight
     }
 
-    public ToDo(String title, String description) {
-        this.titel = title;
+    public ToDo(String title) {
+        this.title = title;
+    }
+
+    public ToDo(String titel, String description) {
+        this(titel);
         this.description = description;
     }
 
-    public String getTitel() {
-        return titel;
+    public ToDo(String titel, String description, IntervalType type) {
+        this(titel, description);
+        this.interval = type;
     }
 
-    public void setTitel(String titel) {
-        this.titel = titel;
+    public String getTitle() {
+        return title;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
     }
 
     public String getDescription() {
@@ -44,11 +66,11 @@ public class ToDo {
         this.description = description;
     }
 
-    public Period getInterval() {
+    public IntervalType getInterval() {
         return interval;
     }
 
-    public void setInterval(Period interval) {
+    public void setInterval(IntervalType interval) {
         this.interval = interval;
     }
 
