@@ -1,1 +1,1 @@
-# de.swtproject.todo.core.ToDo
+# ToDo
