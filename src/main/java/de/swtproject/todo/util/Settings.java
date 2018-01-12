@@ -6,6 +6,14 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.Properties;
 
+/**
+ * Settings controller for accessing the settings.
+ * Settings are stored in the 'config.properties' in the resource directory.
+ *
+ * @author Ruben Maurer
+ * @version 1.0
+ * @since 0.1
+ */
 public class Settings {
 
     /**
@@ -17,15 +25,6 @@ public class Settings {
      * The Singleton
      */
     private static Settings self = new Settings();
-
-    /**
-     * Get the singleton.
-     *
-     * @return the singleton
-     */
-    private static Settings getInstance() {
-        return self;
-    }
 
     /**
      * Constructor for new settings singleton.

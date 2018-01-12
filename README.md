@@ -1,1 +1,2 @@
-# de.swtproject.todo.core.ToDo
+# ToDo
+Prototyp #1
