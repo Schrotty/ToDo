@@ -12,17 +12,14 @@ public class Main {
         DatabaseManager.phoenix();
 
         //store something in database
-        DatabaseManager.saveToDo(new ToDo("Test 1", "Description", IntervalType.DAILY));
-        DatabaseManager.saveToDo(new ToDo("Test 2", "Description", IntervalType.DAILY));
-        DatabaseManager.saveToDo(new ToDo("Test 3", "Description", IntervalType.MONTHLY));
-        DatabaseManager.saveToDo(new ToDo("Test 4", "Description", IntervalType.YEARLY));
-        DatabaseManager.saveToDo(new ToDo("Test 5", "Description", IntervalType.YEARLY));
+        DatabaseManager.storeToDo(new ToDo("Test 1", "Description", IntervalType.DAILY));
+        DatabaseManager.storeToDo(new ToDo("Test 2", "Description", IntervalType.DAILY));
+        DatabaseManager.storeToDo(new ToDo("Test 3", "Description", IntervalType.MONTHLY));
+        DatabaseManager.storeToDo(new ToDo("Test 4", "Description", IntervalType.YEARLY));
+        DatabaseManager.storeToDo(new ToDo("Test 5", "Description", IntervalType.YEARLY));
 
         //get and print all titles in database
-        for (ToDo todo :
-                DatabaseManager.getToDoCollection()) {
-            System.out.println(todo.getTitle());
-        }
+        DatabaseManager.getToDoCollection().forEach(System.out::println);
 
         //destroy the databaseManager
         DatabaseManager.destroy();

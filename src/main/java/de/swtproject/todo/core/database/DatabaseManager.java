@@ -92,7 +92,7 @@ public class DatabaseManager {
      * @param todo the object to save
      * @throws SQLException on SQL exception
      */
-    public static void saveToDo(ToDo todo) throws SQLException {
+    public static void storeToDo(ToDo todo) throws SQLException {
         self.todoAccess.createIfNotExists(todo);
     }
 
@@ -100,10 +100,15 @@ public class DatabaseManager {
      * Saves a collection of objects
      *
      * @param collection the collections to save
-     * @throws SQLException on SQL exception
      */
-    public static void saveToDoCollection(Collection<ToDo> collection) throws SQLException {
-        self.todoAccess.create(collection);
+    public static void storeToDoCollection(Collection<ToDo> collection) {
+        collection.forEach(todo -> {
+            try {
+                storeToDo(todo);
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        });
     }
 
     /**
