@@ -1,8 +1,13 @@
-package de.swtproject.todo.GUI.TODOGUI;
+package de.swtproject.todo.gui;
 
 import com.toedter.calendar.JDateChooser;
 import de.swtproject.todo.core.IntervalType;
+import de.swtproject.todo.core.ToDo;
+import de.swtproject.todo.core.database.DatabaseManager;
+
 import javax.swing.*;
+import java.awt.event.WindowEvent;
+import java.sql.SQLException;
 
 
 public class CreateToDo extends javax.swing.JDialog {
@@ -32,9 +37,9 @@ public class CreateToDo extends javax.swing.JDialog {
 
     public CreateToDo() {
         initComponents();
-
-
     }
+
+
 
 
 
@@ -241,14 +246,14 @@ public class CreateToDo extends javax.swing.JDialog {
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(mainpanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
-        this.setDefaultCloseOperation(JDialog.DO_NOTHING_ON_CLOSE);
+      /*  this.setDefaultCloseOperation(JDialog.DO_NOTHING_ON_CLOSE);
         this.addWindowListener(new java.awt.event.WindowAdapter() {
             @Override
-            public void windowClosing(java.awt.event.WindowEvent windowEvent) {
-            windowEvent.getWindow().dispose();
+            public void windowClosed(WindowEvent e) {
+                e.
             }
         });
-
+*/
         for(IntervalType intervalType : IntervalType.values()){
             String inter = String.format("%s%s", intervalType.toString().substring(0,1), intervalType.toString().substring(1).toLowerCase());
             intervalComboBox.addItem(inter);
@@ -264,6 +269,18 @@ public class CreateToDo extends javax.swing.JDialog {
     }
 
     private void submitButtonActionPerformed(java.awt.event.ActionEvent evt) {
+        try {
+            ToDo todo = ToDo.create(titleTextField.getText());
+            todo.setDescription(descriptionTextArea.getText());
+            todo.setInterval(IntervalType.valueOf(intervalComboBox.getSelectedItem().toString().toUpperCase()));
+            todo.setStart(dateToStartButton.getDate());
+            todo.setDeadline(deadlineButton.getDate());
+            DatabaseManager.storeToDo(todo);
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
 
     }
 

@@ -1,7 +1,12 @@
-package de.swtproject.todo.GUI.TODOGUI;
+package de.swtproject.todo.gui;
+
+import de.swtproject.todo.core.ToDo;
+import de.swtproject.todo.core.database.DatabaseManager;
 
 import javax.swing.*;
+import javax.swing.table.DefaultTableModel;
 import java.awt.*;
+import java.sql.SQLException;
 import java.util.Objects;
 
 public class Mainsite extends javax.swing.JFrame {
@@ -11,7 +16,7 @@ public class Mainsite extends javax.swing.JFrame {
 
    public static final int fontsize = 16;
     // Variables declaration - do not modify
-    private javax.swing.JTable ToDoTabel;
+    private javax.swing.JTable todoTable;
     private javax.swing.JLabel affilationLabel;
     private javax.swing.JToggleButton archivButton;
     private javax.swing.JButton editButton;
@@ -48,6 +53,18 @@ public class Mainsite extends javax.swing.JFrame {
 
     }
 
+    private void loadOnTable(){
+        try {
+            for(ToDo todo : DatabaseManager.getCollection(true)){
+                DefaultTableModel model = (DefaultTableModel) todoTable.getModel();
+                model.addRow(new Object[]{
+                        todo.getTitle()
+                });
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
 
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">
@@ -55,7 +72,7 @@ public class Mainsite extends javax.swing.JFrame {
 
         leftPanel = new javax.swing.JPanel();
         todoScrollPane = new javax.swing.JScrollPane();
-        ToDoTabel = new javax.swing.JTable();
+        todoTable = new javax.swing.JTable();
         filterButton = new javax.swing.JToggleButton();
         prodButton = new javax.swing.JToggleButton();
         archivButton = new javax.swing.JToggleButton();
@@ -91,9 +108,9 @@ public class Mainsite extends javax.swing.JFrame {
         todoScrollPane.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED, null, new java.awt.Color(102, 102, 102), null, null));
         todoScrollPane.setViewportBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED, null, new java.awt.Color(102, 102, 102), null, null));
 
-        ToDoTabel.setAutoCreateRowSorter(true);
-        ToDoTabel.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED, null, new java.awt.Color(102, 102, 102), null, null));
-        ToDoTabel.setModel(new javax.swing.table.DefaultTableModel(
+        todoTable.setAutoCreateRowSorter(true);
+        todoTable.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED, null, new java.awt.Color(102, 102, 102), null, null));
+        todoTable.setModel(new javax.swing.table.DefaultTableModel(
                 new Object [][] {
                         {null}
                 },
@@ -101,7 +118,7 @@ public class Mainsite extends javax.swing.JFrame {
                         ""
                 }
         ));
-        todoScrollPane.setViewportView(ToDoTabel);
+        todoScrollPane.setViewportView(todoTable);
 
 
         filterButton.setFont(new java.awt.Font("Tahoma", 1, fontsize));

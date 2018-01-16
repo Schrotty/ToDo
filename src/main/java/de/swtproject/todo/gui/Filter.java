@@ -1,4 +1,4 @@
-package de.swtproject.todo.GUI.TODOGUI;
+package de.swtproject.todo.gui;
 
 
 import javax.swing.*;
