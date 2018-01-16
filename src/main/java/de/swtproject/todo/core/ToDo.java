@@ -190,7 +190,7 @@ public class ToDo {
      * Create a new {@link ToDo} with given title.
      *
      * @param title the given title
-     * @return the created todo
+     * @return the created TODOGUI
      */
     public static ToDo create(String title) {
         return new ToDo(title);
