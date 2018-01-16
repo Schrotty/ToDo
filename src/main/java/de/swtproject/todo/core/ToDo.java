@@ -33,7 +33,7 @@ public class ToDo {
     /**
      * The Interval.
      */
-    @DatabaseField(dataType = DataType.ENUM_STRING) //TODO: Change to ENUM_INTEGER and add table
+    @DatabaseField(dataType = DataType.ENUM_INTEGER) //TODO: Change to ENUM_INTEGER and add table
     private IntervalType interval;
 
     /**
@@ -211,7 +211,7 @@ public class ToDo {
      * Create a new {@link ToDo} with given title.
      *
      * @param title the given title
-     * @return the created todo
+     * @return the created TODOGUI
      */
     public static ToDo create(String title) {
         return new ToDo(title);
@@ -222,7 +222,7 @@ public class ToDo {
      *
      * @param title       the given title
      * @param description the given description
-     * @return the created todo
+     * @return the created TODOGUI
      */
     public static ToDo create(String title, String description) {
         return new ToDo(title, description);
@@ -234,7 +234,7 @@ public class ToDo {
      * @param title       the given title
      * @param description the given description
      * @param interval    the given interval
-     * @return the created todo
+     * @return the created TODOGUI
      */
     public static ToDo create(String title, String description, IntervalType interval) {
         return new ToDo(title, description, interval);
