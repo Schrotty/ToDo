@@ -3,6 +3,10 @@ package de.swtproject.todo.core.database;
 import com.j256.ormlite.dao.Dao;
 import com.j256.ormlite.dao.DaoManager;
 import com.j256.ormlite.jdbc.JdbcConnectionSource;
+import com.j256.ormlite.stmt.PreparedQuery;
+import com.j256.ormlite.stmt.QueryBuilder;
+import com.j256.ormlite.stmt.SelectArg;
+import com.j256.ormlite.stmt.Where;
 import com.j256.ormlite.support.ConnectionSource;
 import com.j256.ormlite.table.TableUtils;
 import de.swtproject.todo.core.ToDo;
@@ -10,7 +14,7 @@ import de.swtproject.todo.util.Settings;
 
 import java.io.File;
 import java.sql.SQLException;
-import java.util.Collection;
+import java.util.List;
 
 /**
  * Manager controller for accessing the database.
@@ -30,12 +34,21 @@ public class DatabaseManager {
     /**
      * The database access object used by the manager.
      */
-    private Dao<ToDo,String> todoAccess;
+    public Dao<ToDo,String> todoAccess;
 
     /**
      * DatabaseManager singleton.
      */
     private static DatabaseManager self = new DatabaseManager();
+
+    /**
+     * Get DatabaseManager instance.
+     *
+     * @return the instance
+     */
+    public static DatabaseManager getInstance() {
+        return self;
+    }
 
     /**
      * Constructor for a new DatabaseManager
@@ -92,23 +105,8 @@ public class DatabaseManager {
      * @param todo the object to save
      * @throws SQLException on SQL exception
      */
-    public static void storeToDo(ToDo todo) throws SQLException {
-        self.todoAccess.createIfNotExists(todo);
-    }
-
-    /**
-     * Saves a collection of objects
-     *
-     * @param collection the collections to save
-     */
-    public static void storeToDoCollection(Collection<ToDo> collection) {
-        collection.forEach(todo -> {
-            try {
-                storeToDo(todo);
-            } catch (SQLException e) {
-                e.printStackTrace();
-            }
-        });
+    public static ToDo storeToDo(ToDo todo) throws SQLException {
+        return self.todoAccess.createIfNotExists(todo);
     }
 
     /**
@@ -123,12 +121,21 @@ public class DatabaseManager {
     }
 
     /**
-     * Load all object from database.
+     * Get a collection of {@link ToDo}s.
      *
-     * @return the loaded objects
-     * @throws SQLException on SQL exceptions
+     * @param loadProduction load production todo's
+     * @return the todo collection
+     * @throws SQLException on SQL exception
      */
-    public static Collection<ToDo> getToDoCollection() throws SQLException {
-        return self.todoAccess.queryForAll();
+    public static List<ToDo> getCollection(boolean loadProduction) throws SQLException {
+        QueryBuilder<ToDo, String> queryBuilder = self.todoAccess.queryBuilder();
+        Where<ToDo, String> where = queryBuilder.where();
+        SelectArg selectArg = new SelectArg();
+
+        where.eq("production", selectArg);
+        PreparedQuery<ToDo> preparedQuery = queryBuilder.prepare();
+
+        selectArg.setValue(loadProduction);
+        return self.todoAccess.query(preparedQuery);
     }
 }

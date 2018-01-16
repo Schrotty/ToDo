@@ -53,7 +53,7 @@ public class DatabaseManagerTest {
         collection.add(ToDo.create("Hugo"));
         collection.add(ToDo.create("Max"));
 
-        DatabaseManager.storeToDoCollection(collection);
+        //DatabaseManager.storeToDoCollection(collection);
         assertEquals(collection.size(), DatabaseManager.getToDoCollection().size());
     }
 
