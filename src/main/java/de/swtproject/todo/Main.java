@@ -5,21 +5,27 @@ import de.swtproject.todo.core.ToDo;
 import de.swtproject.todo.core.database.DatabaseManager;
 
 import java.sql.SQLException;
+import java.util.List;
 
 public class Main {
     public static void main(String[] args) throws SQLException {
+
         //refresh database
         DatabaseManager.phoenix();
 
         //store something in database
-        DatabaseManager.storeToDo(new ToDo("Test 1", "Description", IntervalType.DAILY));
-        DatabaseManager.storeToDo(new ToDo("Test 2", "Description", IntervalType.DAILY));
-        DatabaseManager.storeToDo(new ToDo("Test 3", "Description", IntervalType.MONTHLY));
-        DatabaseManager.storeToDo(new ToDo("Test 4", "Description", IntervalType.YEARLY));
-        DatabaseManager.storeToDo(new ToDo("Test 5", "Description", IntervalType.YEARLY));
+        ToDo t = ToDo.create("Test 0");
+        t.setInterval(IntervalType.DAILY);
+        DatabaseManager.storeToDo(t);
 
-        //get and print all titles in database
-        DatabaseManager.getToDoCollection().forEach(System.out::println);
+        DatabaseManager.storeToDo(new ToDo("Test 1"));
+        DatabaseManager.storeToDo(new ToDo("Test 2"));
+        DatabaseManager.storeToDo(new ToDo("Test 3"));
+
+        DatabaseManager.getSingleToDo(2).finish();
+        
+        //DatabaseManager.getArchive().forEach(System.out::println);
+        List<ToDo> list = DatabaseManager.getCollection(true);
 
         //destroy the databaseManager
         DatabaseManager.destroy();
