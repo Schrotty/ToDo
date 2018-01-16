@@ -3,7 +3,9 @@ package de.swtproject.todo.core;
 import com.j256.ormlite.field.DataType;
 import com.j256.ormlite.field.DatabaseField;
 import com.j256.ormlite.table.DatabaseTable;
+import de.swtproject.todo.core.database.DatabaseManager;
 
+import java.sql.SQLException;
 import java.util.Date;
 
 /**
@@ -33,7 +35,7 @@ public class ToDo {
     /**
      * The Interval.
      */
-    @DatabaseField(dataType = DataType.ENUM_STRING) //TODO: Change to ENUM_INTEGER and add table
+    @DatabaseField(dataType = DataType.ENUM_INTEGER) //TODO: Change to ENUM_INTEGER and add table
     private IntervalType interval;
 
     /**
@@ -74,29 +76,6 @@ public class ToDo {
      */
     public ToDo(String title) {
         this.title = title;
-    }
-
-    /**
-     * Instantiates a new To do.
-     *
-     * @param title       the title
-     * @param description the description
-     */
-    public ToDo(String title, String description) {
-        this(title);
-        this.description = description;
-    }
-
-    /**
-     * Instantiates a new To do.
-     *
-     * @param title       the title
-     * @param description the description
-     * @param type        the type
-     */
-    public ToDo(String title, String description, IntervalType type) {
-        this(title, description);
-        this.interval = type;
     }
 
     /**
@@ -211,43 +190,40 @@ public class ToDo {
      * Create a new {@link ToDo} with given title.
      *
      * @param title the given title
-     * @return the created todo
+     * @return the created TODOGUI
      */
     public static ToDo create(String title) {
         return new ToDo(title);
     }
 
     /**
-     * Create a new {@link ToDo} with given title and description.
+     * Finish a todo.
      *
-     * @param title       the given title
-     * @param description the given description
-     * @return the created todo
+     * @return finishing successful?
+     * @throws SQLException on SQL excetion
      */
-    public static ToDo create(String title, String description) {
-        return new ToDo(title, description);
+    public boolean finish() throws SQLException {
+        production = false;
+        return update();
     }
 
     /**
-     * Create a new {@link ToDo} with given title, description and interval.
+     * Delete a todo.
      *
-     * @param title       the given title
-     * @param description the given description
-     * @param interval    the given interval
-     * @return the created todo
+     * @return deleting successful?
+     * @throws SQLException on SQL exception
      */
-    public static ToDo create(String title, String description, IntervalType interval) {
-        return new ToDo(title, description, interval);
+    public boolean delete() throws SQLException {
+        return DatabaseManager.getInstance().todoAccess.delete(this) == 1;
     }
 
-
     /**
-     * To string string.
+     * Update todo.
      *
-     * @return the string
+     * @return updating successful?
+     * @throws SQLException on SQL exception
      */
-    @Override
-    public String toString() {
-        return String.format("%s - %s (%s)", title, description, interval.toString());
+    private boolean update() throws SQLException {
+        return DatabaseManager.getInstance().todoAccess.update(this) == 1;
     }
 }
