@@ -13,41 +13,40 @@ public class Mainsite extends javax.swing.JFrame {
 
     protected CreateToDo createToDoFrame;
     protected Filter filterFrame;
+   // protected Edit editFrame;
 
    public static final int fontsize = 16;
     // Variables declaration - do not modify
-    private javax.swing.JTable todoTable;
-    private javax.swing.JLabel affilationLabel;
-    private javax.swing.JToggleButton archivButton;
-    private javax.swing.JButton editButton;
-    private javax.swing.JMenuItem createMilestoneMenu;
-    private javax.swing.JMenuItem createNotifiyPointMenu;
-    private javax.swing.JMenuItem createToDoMenu;
-    private javax.swing.JPanel dataPanel;
-    private javax.swing.JLabel dateLabel;
-    private javax.swing.JLabel deadlineLabel;
-    private javax.swing.JButton deleteButton;
-    private javax.swing.JTextArea description;
-    private javax.swing.JToggleButton filterButton;
-    private javax.swing.JButton finishButton;
-    private javax.swing.JPanel leftPanel;
-    private javax.swing.JMenu menuCreate;
-    private javax.swing.JMenuBar menubar;
-    private javax.swing.JComboBox<String> milestoneComboBox;
-    private javax.swing.JLabel milestoneLabel;
-    private javax.swing.JPanel milestonePanel;
-    private javax.swing.JLabel notifypointLabel;
-    private javax.swing.JToggleButton prodButton;
-    private javax.swing.JPanel rightPanel;
-    private javax.swing.JScrollPane scrollDescription;
-    private javax.swing.JLabel startLabel;
-    private javax.swing.JTextField title;
-    private javax.swing.JPanel todoPanel;
-    private javax.swing.JScrollPane todoScrollPane;
+    private JTable todoTable;
+    private JLabel affilationLabel;
+    private JToggleButton archivButton;
+    private JButton editButton;
+    private JMenuItem createMilestoneMenu;
+    private JMenuItem createNotifiyPointMenu;
+    private JMenuItem createToDoMenu;
+    private JPanel dataPanel;
+    private JLabel dateLabel;
+    private JLabel deadlineLabel;
+    private JButton deleteButton;
+    private JTextArea description;
+    private JButton filterButton;
+    private JButton finishButton;
+    private JPanel leftPanel;
+    private JMenu menuCreate;
+    private JMenuBar menubar;
+    private JComboBox<String> milestoneComboBox;
+    private JLabel milestoneLabel;
+    private JPanel milestonePanel;
+    private JLabel notifypointLabel;
+    private JToggleButton prodButton;
+    private JPanel rightPanel;
+    private JScrollPane scrollDescription;
+    private JLabel startLabel;
+    private JTextField title;
+    private JPanel todoPanel;
+    private JScrollPane todoScrollPane;
     // End of variables declaration
-    /**
-     * Creates new form Main
-     */
+
     public Mainsite() {
         initComponents();
 
@@ -70,34 +69,34 @@ public class Mainsite extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">
     private void initComponents() {
 
-        leftPanel = new javax.swing.JPanel();
-        todoScrollPane = new javax.swing.JScrollPane();
-        todoTable = new javax.swing.JTable();
-        filterButton = new javax.swing.JToggleButton();
-        prodButton = new javax.swing.JToggleButton();
-        archivButton = new javax.swing.JToggleButton();
-        milestonePanel = new javax.swing.JPanel();
-        milestoneComboBox = new javax.swing.JComboBox<>();
-        rightPanel = new javax.swing.JPanel();
-        deleteButton = new javax.swing.JButton();
-        finishButton = new javax.swing.JButton();
-        dataPanel = new javax.swing.JPanel();
-        startLabel = new javax.swing.JLabel();
-        dateLabel = new javax.swing.JLabel();
-        milestoneLabel = new javax.swing.JLabel();
-        affilationLabel = new javax.swing.JLabel();
-        deadlineLabel = new javax.swing.JLabel();
-        notifypointLabel = new javax.swing.JLabel();
-        todoPanel = new javax.swing.JPanel();
-        title = new javax.swing.JTextField();
-        scrollDescription = new javax.swing.JScrollPane();
-        description = new javax.swing.JTextArea();
-        editButton = new javax.swing.JButton();
-        menubar = new javax.swing.JMenuBar();
-        menuCreate = new javax.swing.JMenu();
-        createToDoMenu = new javax.swing.JMenuItem();
-        createMilestoneMenu = new javax.swing.JMenuItem();
-        createNotifiyPointMenu = new javax.swing.JMenuItem();
+        leftPanel = new JPanel();
+        todoScrollPane = new JScrollPane();
+        todoTable = new JTable();
+        filterButton = new JButton();
+        prodButton = new JToggleButton();
+        archivButton = new JToggleButton();
+        milestonePanel = new JPanel();
+        milestoneComboBox = new JComboBox<>();
+        rightPanel = new JPanel();
+        deleteButton = new JButton();
+        finishButton = new JButton();
+        dataPanel = new JPanel();
+        startLabel = new JLabel();
+        dateLabel = new JLabel();
+        milestoneLabel = new JLabel();
+        affilationLabel = new JLabel();
+        deadlineLabel = new JLabel();
+        notifypointLabel = new JLabel();
+        todoPanel = new JPanel();
+        title = new JTextField();
+        scrollDescription = new JScrollPane();
+        description = new JTextArea();
+        editButton = new JButton();
+        menubar = new JMenuBar();
+        menuCreate = new JMenu();
+        createToDoMenu = new JMenuItem();
+        createMilestoneMenu = new JMenuItem();
+        createNotifiyPointMenu = new JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("ToDo Tool");
@@ -105,8 +104,10 @@ public class Mainsite extends javax.swing.JFrame {
         leftPanel.setInheritsPopupMenu(true);
         leftPanel.setPreferredSize(new java.awt.Dimension(200, 800));
 
-        todoScrollPane.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED, null, new java.awt.Color(102, 102, 102), null, null));
-        todoScrollPane.setViewportBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED, null, new java.awt.Color(102, 102, 102), null, null));
+        todoScrollPane.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED, null,
+                new java.awt.Color(102, 102, 102), null, null));
+        todoScrollPane.setViewportBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED, null,
+                new java.awt.Color(102, 102, 102), null, null));
 
         todoTable.setAutoCreateRowSorter(true);
         todoTable.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED, null, new java.awt.Color(102, 102, 102), null, null));
@@ -262,19 +263,23 @@ public class Mainsite extends javax.swing.JFrame {
         );
 
         title.setEditable(false);
-        title.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+        title.setFont(new java.awt.Font("Tahoma", 1, fontsize));
         title.setToolTipText("");
-        title.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED, null, new java.awt.Color(102, 102, 102), null, null));
+        title.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED, null,
+                new java.awt.Color(102, 102, 102), null, null));
 
         scrollDescription.setBorder(null);
-        scrollDescription.setViewportBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED, null, new java.awt.Color(102, 102, 102), null, null));
+        scrollDescription.setViewportBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED, null,
+                new java.awt.Color(102, 102, 102), null, null));
 
         description.setEditable(false);
         description.setColumns(20);
-        description.setFont(new java.awt.Font("Monospaced", 0, 14)); // NOI18N
+        description.setFont(new java.awt.Font("Monospaced", 1, fontsize));
         description.setRows(5);
         description.setWrapStyleWord(true);
         description.setBorder(null);
+        description.setLineWrap(true);
+        description.setWrapStyleWord(true);
         scrollDescription.setViewportView(description);
 
         javax.swing.GroupLayout todoPanelLayout = new javax.swing.GroupLayout(todoPanel);
@@ -298,7 +303,8 @@ public class Mainsite extends javax.swing.JFrame {
 
         editButton.setFont(new java.awt.Font("Tahoma", 1, fontsize));
         editButton.setText("Edit");
-        editButton.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED, null, new java.awt.Color(102, 102, 102), null, null));
+        editButton.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED, null,
+                new java.awt.Color(102, 102, 102), null, null));
         editButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 editButtonActionPerformed(evt);
@@ -353,12 +359,14 @@ public class Mainsite extends javax.swing.JFrame {
         menuCreate.add(createToDoMenu);
 
         createMilestoneMenu.setFont(new java.awt.Font("Tahoma", 1, 16));
-        createMilestoneMenu.setIcon(new javax.swing.ImageIcon(Objects.requireNonNull(getClass().getClassLoader().getResource("icon/MilesoneCreate.png")))); // NOI18N
+        createMilestoneMenu.setIcon(new javax.swing.ImageIcon(Objects.requireNonNull(getClass().getClassLoader().
+                getResource("icon/MilesoneCreate.png")))); // NOI18N
         createMilestoneMenu.setText("Create Milestone");
         menuCreate.add(createMilestoneMenu);
 
         createNotifiyPointMenu.setFont(new java.awt.Font("Tahoma", 1, 16));
-        createNotifiyPointMenu.setIcon(new javax.swing.ImageIcon(Objects.requireNonNull(getClass().getClassLoader().getResource("icon/NotificationPointCreate.png")))); // NOI18N
+        createNotifiyPointMenu.setIcon(new javax.swing.ImageIcon(Objects.requireNonNull(getClass().getClassLoader().
+                getResource("icon/NotificationPointCreate.png")))); // NOI18N
         createNotifiyPointMenu.setText("Create Notification Point");
         menuCreate.add(createNotifiyPointMenu);
 
@@ -414,8 +422,6 @@ public class Mainsite extends javax.swing.JFrame {
     }
 
     private void editButtonActionPerformed(java.awt.event.ActionEvent evt) {
-
-
 
     }
 
