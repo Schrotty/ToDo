@@ -39,15 +39,9 @@ public class CreateToDo extends javax.swing.JDialog {
         initComponents();
     }
 
-
-
-
-
-
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">
     private void initComponents() {
-
         mainpanel = new javax.swing.JPanel();
         createToDoLabel = new javax.swing.JLabel();
         cancelButton = new javax.swing.JButton();
@@ -66,8 +60,6 @@ public class CreateToDo extends javax.swing.JDialog {
         todoCreateLabel = new javax.swing.JLabel();
 
         setTitle("Create ToDo");
-
-
 
         cancelButton.setFont(new java.awt.Font("Tahoma", 1, mainsite.fontsize));
         cancelButton.setText("Cancel");
@@ -246,17 +238,11 @@ public class CreateToDo extends javax.swing.JDialog {
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(mainpanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
-      /*  this.setDefaultCloseOperation(JDialog.DO_NOTHING_ON_CLOSE);
-        this.addWindowListener(new java.awt.event.WindowAdapter() {
-            @Override
-            public void windowClosed(WindowEvent e) {
-                e.
-            }
-        });
-*/
+
         for(IntervalType intervalType : IntervalType.values()){
-            String inter = String.format("%s%s", intervalType.toString().substring(0,1), intervalType.toString().substring(1).toLowerCase());
-            intervalComboBox.addItem(inter);
+            intervalComboBox.addItem(
+                    String.format("%s%s", intervalType.toString().substring(0,1), intervalType.toString().substring(1).toLowerCase())
+            );
         }
 
 
@@ -270,20 +256,25 @@ public class CreateToDo extends javax.swing.JDialog {
 
     private void submitButtonActionPerformed(java.awt.event.ActionEvent evt) {
         try {
-            ToDo todo = ToDo.create(titleTextField.getText());
-            todo.setDescription(descriptionTextArea.getText());
-            todo.setInterval(IntervalType.valueOf(intervalComboBox.getSelectedItem().toString().toUpperCase()));
-            todo.setStart(dateToStartButton.getDate());
-            todo.setDeadline(deadlineButton.getDate());
-            DatabaseManager.storeToDo(todo);
+            if (dateToStartButton.getDate().before(deadlineButton.getDate())) {
+                ToDo todo = ToDo.create(titleTextField.getText());
 
+                todo.setDescription(descriptionTextArea.getText());
+                todo.setInterval(IntervalType.valueOf(intervalComboBox.getSelectedItem().toString().toUpperCase()));
+                todo.setStart(dateToStartButton.getDate());
+                todo.setDeadline(deadlineButton.getDate());
+
+                DatabaseManager.storeToDo(todo);
+            } else {
+                JDialog diag = new JDialog();
+                diag.setTitle("FEHLER!");
+
+                diag.setVisible(true);
+            }
         } catch (SQLException e) {
             e.printStackTrace();
         }
 
-
+        this.dispose();
     }
-
-
-
 }

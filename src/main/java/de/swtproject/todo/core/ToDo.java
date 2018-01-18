@@ -226,4 +226,13 @@ public class ToDo {
     private boolean update() throws SQLException {
         return DatabaseManager.getInstance().todoAccess.update(this) == 1;
     }
+
+    /**
+     * Get the string repro.
+     *
+     * @return the string
+     */
+    public String toString() {
+        return title;
+    }
 }

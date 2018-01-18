@@ -6,6 +6,11 @@ package de.swtproject.todo.core;
 public enum IntervalType {
 
     /**
+     * No interval type.
+     */
+    NONE,
+
+    /**
      * Daily interval type.
      */
     DAILY,

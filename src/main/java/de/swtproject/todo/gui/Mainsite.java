@@ -4,9 +4,12 @@ import de.swtproject.todo.core.ToDo;
 import de.swtproject.todo.core.database.DatabaseManager;
 
 import javax.swing.*;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
 import javax.swing.table.DefaultTableModel;
 import java.awt.*;
 import java.sql.SQLException;
+import java.text.SimpleDateFormat;
 import java.util.Objects;
 
 public class Mainsite extends javax.swing.JFrame {
@@ -16,7 +19,7 @@ public class Mainsite extends javax.swing.JFrame {
 
    public static final int fontsize = 16;
     // Variables declaration - do not modify
-    private javax.swing.JTable todoTable;
+    private javax.swing.JList todoTable;
     private javax.swing.JLabel affilationLabel;
     private javax.swing.JToggleButton archivButton;
     private javax.swing.JButton editButton;
@@ -50,17 +53,17 @@ public class Mainsite extends javax.swing.JFrame {
      */
     public Mainsite() {
         initComponents();
-
+        loadOnTable();
     }
 
     private void loadOnTable(){
         try {
+            DefaultListModel model = new DefaultListModel();
             for(ToDo todo : DatabaseManager.getCollection(true)){
-                DefaultTableModel model = (DefaultTableModel) todoTable.getModel();
-                model.addRow(new Object[]{
-                        todo.getTitle()
-                });
+                model.addElement(todo);
             }
+
+            todoTable.setModel(model);
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -72,7 +75,7 @@ public class Mainsite extends javax.swing.JFrame {
 
         leftPanel = new javax.swing.JPanel();
         todoScrollPane = new javax.swing.JScrollPane();
-        todoTable = new javax.swing.JTable();
+        todoTable = new javax.swing.JList<>();
         filterButton = new javax.swing.JToggleButton();
         prodButton = new javax.swing.JToggleButton();
         archivButton = new javax.swing.JToggleButton();
@@ -108,16 +111,11 @@ public class Mainsite extends javax.swing.JFrame {
         todoScrollPane.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED, null, new java.awt.Color(102, 102, 102), null, null));
         todoScrollPane.setViewportBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED, null, new java.awt.Color(102, 102, 102), null, null));
 
-        todoTable.setAutoCreateRowSorter(true);
+        //todoTable.setAutoCreateRowSorter(true);
+        todoTable.setFont(new java.awt.Font("Tahoma", 1, fontsize));
         todoTable.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED, null, new java.awt.Color(102, 102, 102), null, null));
-        todoTable.setModel(new javax.swing.table.DefaultTableModel(
-                new Object [][] {
-                        {null}
-                },
-                new String [] {
-                        ""
-                }
-        ));
+        todoTable.addListSelectionListener(e -> fillView((ToDo)todoTable.getSelectedValue()));
+
         todoScrollPane.setViewportView(todoTable);
 
 
@@ -389,9 +387,17 @@ public class Mainsite extends javax.swing.JFrame {
         setLocationRelativeTo(null);
     }// </editor-fold>
 
+    private void fillView(ToDo todo) {
+        SimpleDateFormat formatter = new SimpleDateFormat("dd.MM.yyyy");
+
+        title.setText(todo.getTitle());
+        description.setText(todo.getDescription());
+
+        dateLabel.setText(todo.getStart() != null ? formatter.format(todo.getStart()) : "");
+        notifypointLabel.setText(todo.getDeadline() != null ? formatter.format(todo.getDeadline()) : "");
+    }
+
     private void createToDoMenuActionPerformed(java.awt.event.ActionEvent evt) {
-        //CreateToDo todo = new CreateToDo(this);
-       // todo.setVisible(true);
         JDialog create = new CreateToDo();
 
         create.setVisible (true);
