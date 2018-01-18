@@ -235,8 +235,5 @@ public class ToDo {
      */
     public String toString() {
         return title;
-
-    private boolean update() throws SQLException {
-        return DatabaseManager.getInstance().todoAccess.update(this) == 1;
     }
 }

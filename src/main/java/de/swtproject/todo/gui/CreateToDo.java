@@ -75,7 +75,26 @@ public class CreateToDo extends javax.swing.JDialog {
         submitButton.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED, new java.awt.Color(255, 255, 255), new java.awt.Color(102, 102, 102), new java.awt.Color(255, 255, 255), new java.awt.Color(255, 255, 255)));
         submitButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
+                if (!validateForm()) {
+                    JOptionPane.showMessageDialog(submitButton.getRootPane(), "Your input is bulsshit!");
+                    return;
+                }
+
                 submitButtonActionPerformed(evt);
+            }
+
+            private boolean validateForm() {
+                boolean isValid = true;
+
+                if (dateToStartButton.getDate() != null && deadlineButton.getDate() != null) {
+                    isValid = dateToStartButton.getDate().before(deadlineButton.getDate());
+                }
+
+                if (titleTextField.getText().isEmpty() || titleTextField.getText() == null) {
+                    isValid = false;
+                }
+
+                return isValid;
             }
         });
 
@@ -256,7 +275,6 @@ public class CreateToDo extends javax.swing.JDialog {
 
     private void submitButtonActionPerformed(java.awt.event.ActionEvent evt) {
         try {
-            if (dateToStartButton.getDate().before(deadlineButton.getDate())) {
                 ToDo todo = ToDo.create(titleTextField.getText());
 
                 todo.setDescription(descriptionTextArea.getText());
@@ -265,12 +283,6 @@ public class CreateToDo extends javax.swing.JDialog {
                 todo.setDeadline(deadlineButton.getDate());
 
                 DatabaseManager.storeToDo(todo);
-            } else {
-                JDialog diag = new JDialog();
-                diag.setTitle("FEHLER!");
-
-                diag.setVisible(true);
-            }
         } catch (SQLException e) {
             e.printStackTrace();
         }
