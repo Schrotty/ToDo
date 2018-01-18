@@ -35,7 +35,8 @@ public class CreateToDo extends javax.swing.JDialog {
 
 
 
-    public CreateToDo() {
+    public CreateToDo(Mainsite mainSite) {
+        this.mainsite = mainSite;
         initComponents();
     }
 
@@ -76,13 +77,18 @@ public class CreateToDo extends javax.swing.JDialog {
         submitButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 if (!validateForm()) {
-                    JOptionPane.showMessageDialog(submitButton.getRootPane(), "Your input is bulsshit!");
+                    JOptionPane.showMessageDialog(submitButton.getRootPane(), "Invalid input!");
                     return;
                 }
 
                 submitButtonActionPerformed(evt);
             }
 
+            /**
+             * Validates the creation form.
+             *
+             * @return is form input valid
+             */
             private boolean validateForm() {
                 boolean isValid = true;
 
@@ -120,8 +126,12 @@ public class CreateToDo extends javax.swing.JDialog {
                         "Description" , javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION,
                         new java.awt.Font("Tahoma", 1, mainsite.fontsize) ));
 
+        descriptionTextArea.setFont(new java.awt.Font("Tahoma", 0, mainsite.fontsize));
         descriptionTextArea.setColumns(20);
         descriptionTextArea.setRows(5);
+        descriptionTextArea.setWrapStyleWord(true);
+        descriptionTextArea.setLineWrap(true);
+
         descriptionScrollPane.setViewportView(descriptionTextArea);
 
         javax.swing.GroupLayout descriptionPanelLayout = new javax.swing.GroupLayout(descriptionPanel);
@@ -142,7 +152,7 @@ public class CreateToDo extends javax.swing.JDialog {
                         ("Tahoma", 1, mainsite.fontsize) ));
 
         milestonesOptionsComboBox.setFont(new java.awt.Font("Tahoma", 1, mainsite.fontsize));
-        milestonesOptionsComboBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Nothing Selected" }));
+        milestonesOptionsComboBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "None" }));
         milestonesOptionsComboBox.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED,
                 null, new java.awt.Color(102, 102, 102), null, null));
 
@@ -163,7 +173,7 @@ public class CreateToDo extends javax.swing.JDialog {
                 javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 1, mainsite.fontsize) ));
 
         intervalComboBox.setFont(new java.awt.Font("Tahoma", 1, mainsite.fontsize));
-        intervalComboBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Nothing Selected" }));
+        //intervalComboBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Nothing Selected" }));
         intervalComboBox.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED,
                 null, new java.awt.Color(102, 102, 102), null, null));
 
@@ -282,7 +292,7 @@ public class CreateToDo extends javax.swing.JDialog {
                 todo.setStart(dateToStartButton.getDate());
                 todo.setDeadline(deadlineButton.getDate());
 
-                DatabaseManager.storeToDo(todo);
+                mainsite.updateList(DatabaseManager.storeToDo(todo));
         } catch (SQLException e) {
             e.printStackTrace();
         }

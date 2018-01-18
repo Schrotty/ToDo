@@ -13,7 +13,6 @@ import java.text.SimpleDateFormat;
 import java.util.Objects;
 
 public class Mainsite extends javax.swing.JFrame {
-
     protected CreateToDo createToDoFrame;
     protected Filter filterFrame;
 
@@ -21,7 +20,7 @@ public class Mainsite extends javax.swing.JFrame {
     // Variables declaration - do not modify
     private javax.swing.JList todoTable;
     private javax.swing.JLabel affilationLabel;
-    private javax.swing.JToggleButton archivButton;
+    private javax.swing.JButton archivButton;
     private javax.swing.JButton editButton;
     private javax.swing.JMenuItem createMilestoneMenu;
     private javax.swing.JMenuItem createNotifiyPointMenu;
@@ -31,7 +30,7 @@ public class Mainsite extends javax.swing.JFrame {
     private javax.swing.JLabel deadlineLabel;
     private javax.swing.JButton deleteButton;
     private javax.swing.JTextArea description;
-    private javax.swing.JToggleButton filterButton;
+    private javax.swing.JButton filterButton;
     private javax.swing.JButton finishButton;
     private javax.swing.JPanel leftPanel;
     private javax.swing.JMenu menuCreate;
@@ -40,11 +39,11 @@ public class Mainsite extends javax.swing.JFrame {
     private javax.swing.JLabel milestoneLabel;
     private javax.swing.JPanel milestonePanel;
     private javax.swing.JLabel notifypointLabel;
-    private javax.swing.JToggleButton prodButton;
+    private javax.swing.JButton prodButton;
     private javax.swing.JPanel rightPanel;
     private javax.swing.JScrollPane scrollDescription;
     private javax.swing.JLabel startLabel;
-    private javax.swing.JTextField title;
+    private javax.swing.JLabel title;
     private javax.swing.JPanel todoPanel;
     private javax.swing.JScrollPane todoScrollPane;
     // End of variables declaration
@@ -58,12 +57,16 @@ public class Mainsite extends javax.swing.JFrame {
 
     private void loadOnTable(){
         try {
+            ToDo to = null;
             DefaultListModel model = new DefaultListModel();
             for(ToDo todo : DatabaseManager.getCollection(true)){
+                if (to == null) to = todo;
+
                 model.addElement(todo);
             }
 
             todoTable.setModel(model);
+            fillView(to);
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -76,9 +79,9 @@ public class Mainsite extends javax.swing.JFrame {
         leftPanel = new javax.swing.JPanel();
         todoScrollPane = new javax.swing.JScrollPane();
         todoTable = new javax.swing.JList<>();
-        filterButton = new javax.swing.JToggleButton();
-        prodButton = new javax.swing.JToggleButton();
-        archivButton = new javax.swing.JToggleButton();
+        filterButton = new javax.swing.JButton();
+        prodButton = new javax.swing.JButton();
+        archivButton = new javax.swing.JButton();
         milestonePanel = new javax.swing.JPanel();
         milestoneComboBox = new javax.swing.JComboBox<>();
         rightPanel = new javax.swing.JPanel();
@@ -92,7 +95,7 @@ public class Mainsite extends javax.swing.JFrame {
         deadlineLabel = new javax.swing.JLabel();
         notifypointLabel = new javax.swing.JLabel();
         todoPanel = new javax.swing.JPanel();
-        title = new javax.swing.JTextField();
+        title = new javax.swing.JLabel();
         scrollDescription = new javax.swing.JScrollPane();
         description = new javax.swing.JTextArea();
         editButton = new javax.swing.JButton();
@@ -108,25 +111,17 @@ public class Mainsite extends javax.swing.JFrame {
         leftPanel.setInheritsPopupMenu(true);
         leftPanel.setPreferredSize(new java.awt.Dimension(200, 800));
 
-        todoScrollPane.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED, null, new java.awt.Color(102, 102, 102), null, null));
         todoScrollPane.setViewportBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED, null, new java.awt.Color(102, 102, 102), null, null));
 
         //todoTable.setAutoCreateRowSorter(true);
         todoTable.setFont(new java.awt.Font("Tahoma", 1, fontsize));
-        todoTable.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED, null, new java.awt.Color(102, 102, 102), null, null));
         todoTable.addListSelectionListener(e -> fillView((ToDo)todoTable.getSelectedValue()));
 
         todoScrollPane.setViewportView(todoTable);
 
-
         filterButton.setFont(new java.awt.Font("Tahoma", 1, fontsize));
         filterButton.setText("Filter");
         filterButton.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED, null, new java.awt.Color(102, 102, 102), null, null));
-        filterButton.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                filterButtonActionPerformed(evt);
-            }
-        });
 
         prodButton.setFont(new java.awt.Font("Tahoma", 1, fontsize));
         prodButton.setText("Prod");
@@ -149,7 +144,7 @@ public class Mainsite extends javax.swing.JFrame {
         milestonePanel.setBorder(javax.swing.BorderFactory.createTitledBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED, null, new java.awt.Color(102, 102, 102), null, null), "Milestones", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 1, fontsize) ));
 
         milestoneComboBox.setFont(new java.awt.Font("Tahoma", 1, fontsize));
-        milestoneComboBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Nothing Selected" }));
+        milestoneComboBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "None" }));
         milestoneComboBox.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED, null, new java.awt.Color(102, 102, 102), null, null));
         milestoneComboBox.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -206,22 +201,22 @@ public class Mainsite extends javax.swing.JFrame {
         finishButton.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED, null, new java.awt.Color(102, 102, 102), null, null));
 
         startLabel.setFont(new java.awt.Font("Tahoma", 1, fontsize)); // NOI18N
-        startLabel.setText("Startdate");
+        startLabel.setText("Date to Start:");
 
         dateLabel.setFont(new java.awt.Font("Tahoma", 1, fontsize));
-        dateLabel.setText("");
+        dateLabel.setText("-");
 
         milestoneLabel.setFont(new java.awt.Font("Tahoma", 1, fontsize)); // NOI18N
-        milestoneLabel.setText("Milestone");
+        milestoneLabel.setText("Milestone:");
 
         affilationLabel.setFont(new java.awt.Font("Tahoma", 1, fontsize));
-        affilationLabel.setText("");
+        affilationLabel.setText("-");
 
         deadlineLabel.setFont(new java.awt.Font("Tahoma", 1, fontsize)); // NOI18N
-        deadlineLabel.setText("Deadline");
+        deadlineLabel.setText("Deadline:");
 
         notifypointLabel.setFont(new java.awt.Font("Tahoma", 1, fontsize));
-        notifypointLabel.setText("");
+        notifypointLabel.setText("-");
 
         javax.swing.GroupLayout dataPanelLayout = new javax.swing.GroupLayout(dataPanel);
         dataPanel.setLayout(dataPanelLayout);
@@ -259,20 +254,23 @@ public class Mainsite extends javax.swing.JFrame {
                                 .addContainerGap(39, Short.MAX_VALUE))
         );
 
-        title.setEditable(false);
+
         title.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
         title.setToolTipText("");
-        title.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED, null, new java.awt.Color(102, 102, 102), null, null));
+        //title.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED, null, new java.awt.Color(102, 102, 102), null, null));
 
         scrollDescription.setBorder(null);
         scrollDescription.setViewportBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED, null, new java.awt.Color(102, 102, 102), null, null));
 
         description.setEditable(false);
         description.setColumns(20);
-        description.setFont(new java.awt.Font("Monospaced", 0, 14)); // NOI18N
+        description.setFont(new java.awt.Font("Tomaha", 0, fontsize)); // NOI18N
         description.setRows(5);
         description.setWrapStyleWord(true);
         description.setBorder(null);
+        description.setWrapStyleWord(true);
+        description.setLineWrap(true);
+
         scrollDescription.setViewportView(description);
 
         javax.swing.GroupLayout todoPanelLayout = new javax.swing.GroupLayout(todoPanel);
@@ -288,7 +286,7 @@ public class Mainsite extends javax.swing.JFrame {
         todoPanelLayout.setVerticalGroup(
                 todoPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                         .addGroup(todoPanelLayout.createSequentialGroup()
-                                .addComponent(title, javax.swing.GroupLayout.PREFERRED_SIZE, 99, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(title, javax.swing.GroupLayout.PREFERRED_SIZE, 67, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(scrollDescription, javax.swing.GroupLayout.PREFERRED_SIZE, 512, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addContainerGap())
@@ -335,11 +333,11 @@ public class Mainsite extends javax.swing.JFrame {
                                         .addComponent(editButton, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 34, Short.MAX_VALUE)
                                         .addComponent(finishButton, javax.swing.GroupLayout.DEFAULT_SIZE, 34, Short.MAX_VALUE)))
         );
-        menuCreate.setFont(new java.awt.Font("Tahoma", 1, 16));
+        menuCreate.setFont(new java.awt.Font("Tahoma", 1, fontsize));
         menuCreate.setIcon(new javax.swing.ImageIcon(Objects.requireNonNull(getClass().getClassLoader().getResource("icon/HamburgerMenu.png")))); // NOI18N
         menuCreate.setText("Menu");
 
-        createToDoMenu.setFont(new java.awt.Font("Tahoma", 1, 16));
+        createToDoMenu.setFont(new java.awt.Font("Tahoma", 1, fontsize));
         createToDoMenu.setIcon(new javax.swing.ImageIcon(Objects.requireNonNull(getClass().getClassLoader().getResource("icon/ToDoCreate.png")))); // NOI18N
         createToDoMenu.setText("Create ToDo");
         createToDoMenu.addActionListener(new java.awt.event.ActionListener() {
@@ -350,12 +348,12 @@ public class Mainsite extends javax.swing.JFrame {
         });
         menuCreate.add(createToDoMenu);
 
-        createMilestoneMenu.setFont(new java.awt.Font("Tahoma", 1, 16));
+        createMilestoneMenu.setFont(new java.awt.Font("Tahoma", 1, fontsize));
         createMilestoneMenu.setIcon(new javax.swing.ImageIcon(Objects.requireNonNull(getClass().getClassLoader().getResource("icon/MilesoneCreate.png")))); // NOI18N
         createMilestoneMenu.setText("Create Milestone");
         menuCreate.add(createMilestoneMenu);
 
-        createNotifiyPointMenu.setFont(new java.awt.Font("Tahoma", 1, 16));
+        createNotifiyPointMenu.setFont(new java.awt.Font("Tahoma", 1, fontsize));
         createNotifiyPointMenu.setIcon(new javax.swing.ImageIcon(Objects.requireNonNull(getClass().getClassLoader().getResource("icon/NotificationPointCreate.png")))); // NOI18N
         createNotifiyPointMenu.setText("Create Notification Point");
         menuCreate.add(createNotifiyPointMenu);
@@ -388,17 +386,19 @@ public class Mainsite extends javax.swing.JFrame {
     }// </editor-fold>
 
     private void fillView(ToDo todo) {
-        SimpleDateFormat formatter = new SimpleDateFormat("dd.MM.yyyy");
+        if (todo != null) {
+            SimpleDateFormat formatter = new SimpleDateFormat("dd.MM.yyyy");
 
-        title.setText(todo.getTitle());
-        description.setText(todo.getDescription());
+            title.setText(todo.getTitle());
+            description.setText(todo.getDescription());
 
-        dateLabel.setText(todo.getStart() != null ? formatter.format(todo.getStart()) : "");
-        notifypointLabel.setText(todo.getDeadline() != null ? formatter.format(todo.getDeadline()) : "");
+            dateLabel.setText(todo.getStart() != null ? formatter.format(todo.getStart()) : "-");
+            notifypointLabel.setText(todo.getDeadline() != null ? formatter.format(todo.getDeadline()) : "-");
+        }
     }
 
     private void createToDoMenuActionPerformed(java.awt.event.ActionEvent evt) {
-        JDialog create = new CreateToDo();
+        JDialog create = new CreateToDo(this);
 
         create.setVisible (true);
         create.setModal (true);
@@ -465,4 +465,10 @@ public class Mainsite extends javax.swing.JFrame {
     }
 
 
+    public void updateList(ToDo toDo) {
+        if (toDo != null) {
+            DefaultListModel model = (DefaultListModel) todoTable.getModel();
+            model.addElement(toDo);
+        }
+    }
 }

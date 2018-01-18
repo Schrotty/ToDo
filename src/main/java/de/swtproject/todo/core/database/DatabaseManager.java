@@ -14,6 +14,7 @@ import de.swtproject.todo.util.Settings;
 
 import java.io.File;
 import java.sql.SQLException;
+import java.util.LinkedList;
 import java.util.List;
 
 /**
@@ -136,6 +137,8 @@ public class DatabaseManager {
         PreparedQuery<ToDo> preparedQuery = queryBuilder.prepare();
 
         selectArg.setValue(loadProduction);
-        return self.todoAccess.query(preparedQuery);
+        List result = self.todoAccess.query(preparedQuery);
+
+        return result == null ? new LinkedList<>() : result;
     }
 }
