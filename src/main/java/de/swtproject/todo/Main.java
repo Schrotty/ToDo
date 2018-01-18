@@ -1,6 +1,5 @@
 package de.swtproject.todo;
 
-import de.swtproject.todo.GUI.TODOGUI.Mainsite;
 import de.swtproject.todo.core.IntervalType;
 import de.swtproject.todo.core.ToDo;
 import de.swtproject.todo.core.database.DatabaseManager;
