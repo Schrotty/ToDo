@@ -8,27 +8,78 @@ import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.sql.SQLException;
 
+/**
+ * The type Edit.
+ */
 public class Edit extends javax.swing.JFrame {
-protected Mainsite mainsite;
+    /**
+     * The Mainsite.
+     */
+    protected Mainsite mainsite;
 
+    /**
+     * Instantiates a new Edit.
+     */
     public Edit() {
         initComponents();
     }
 
+    /**
+     * The Milestone combo box.
+     */
     private JComboBox<String> MilestoneComboBox;
+    /**
+     * The Milestone panel.
+     */
     private JPanel MilestonePanel;
+    /**
+     * The Cancel button.
+     */
     private JButton cancelButton;
+    /**
+     * The Date to start button.
+     */
     private JDateChooser dateToStartButton;
+    /**
+     * The Deadline button.
+     */
     private JDateChooser deadlineButton;
+    /**
+     * The Description panel.
+     */
     private JPanel descriptionPanel;
+    /**
+     * The Description scroll pane.
+     */
     private JScrollPane descriptionScrollPane;
+    /**
+     * The Description text area.
+     */
     private JTextArea descriptionTextArea;
+    /**
+     * The Interval combo box.
+     */
     private JComboBox<String> intervalComboBox;
+    /**
+     * The Interval panel.
+     */
     private JPanel intervalPanel;
+    /**
+     * The Submit button.
+     */
     private JButton submitButton;
+    /**
+     * The Title panel.
+     */
     private JPanel titlePanel;
+    /**
+     * The Title text field.
+     */
     private JTextField titleTextField;
 
+    /**
+     * Init components.
+     */
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -221,15 +272,30 @@ protected Mainsite mainsite;
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    /**
+     * Title text field action performed.
+     *
+     * @param evt the evt
+     */
     private void titleTextFieldActionPerformed(ActionEvent evt) {
         // TODO add your handling code here:
     }//GEN-LAST:event_titleTextFieldActionPerformed
 
+    /**
+     * Interval combo box action performed.
+     *
+     * @param evt the evt
+     */
     private void intervalComboBoxActionPerformed(ActionEvent evt) {
         // TODO add your handling code here:
     }//GEN-LAST:event_intervalComboBoxActionPerformed
 
 
+    /**
+     * Set submit button action perdormed.
+     *
+     * @param evt the evt
+     */
     private void setSubmitButtonActionPerdormed(ActionEvent evt){
             try {
                 ToDo editToDo = ToDo.create(titleTextField.getText());
@@ -244,6 +310,12 @@ protected Mainsite mainsite;
             }
             this.dispose();
         }
+
+    /**
+     * Cancel button action performed.
+     *
+     * @param evt the evt
+     */
     private void cancelButtonActionPerformed(ActionEvent evt) {
         this.dispose();
     }

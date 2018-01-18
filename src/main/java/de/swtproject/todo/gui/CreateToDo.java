@@ -10,36 +10,97 @@ import java.awt.event.WindowEvent;
 import java.sql.SQLException;
 
 
+/**
+ * The type Create to do.
+ */
 public class CreateToDo extends javax.swing.JDialog {
 
+    /**
+     * The Mainsite.
+     */
     protected Mainsite mainsite;
 
-    // Variables declaration - do not modify
+    /**
+     * The Cancel button.
+     */
+// Variables declaration - do not modify
     private javax.swing.JButton cancelButton;
+    /**
+     * The Create to do label.
+     */
     private javax.swing.JLabel createToDoLabel;
+    /**
+     * The Date to start button.
+     */
     private JDateChooser dateToStartButton;
+    /**
+     * The Deadline button.
+     */
     private JDateChooser deadlineButton;
+    /**
+     * The Description panel.
+     */
     private javax.swing.JPanel descriptionPanel;
+    /**
+     * The Description scroll pane.
+     */
     private javax.swing.JScrollPane descriptionScrollPane;
+    /**
+     * The Description text area.
+     */
     private javax.swing.JTextArea descriptionTextArea;
+    /**
+     * The Interval combo box.
+     */
     private javax.swing.JComboBox<String> intervalComboBox;
+    /**
+     * The Interval panel.
+     */
     private javax.swing.JPanel intervalPanel;
+    /**
+     * The Mainpanel.
+     */
     private javax.swing.JPanel mainpanel;
+    /**
+     * The Milestone panel.
+     */
     private javax.swing.JPanel milestonePanel;
+    /**
+     * The Milestones options combo box.
+     */
     private javax.swing.JComboBox<String> milestonesOptionsComboBox;
+    /**
+     * The Submit button.
+     */
     private javax.swing.JButton submitButton;
+    /**
+     * The Title panel.
+     */
     private javax.swing.JPanel titlePanel;
+    /**
+     * The Title text field.
+     */
     private javax.swing.JTextField titleTextField;
+    /**
+     * The Todo create label.
+     */
     private javax.swing.JLabel todoCreateLabel;
     // End of variables declaration
 
 
-
+    /**
+     * Instantiates a new Create to do.
+     *
+     * @param mainSite the main site
+     */
     public CreateToDo(Mainsite mainSite) {
         this.mainsite = mainSite;
         initComponents();
     }
 
+    /**
+     * Init components.
+     */
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">
     private void initComponents() {
@@ -279,10 +340,20 @@ public class CreateToDo extends javax.swing.JDialog {
         setLocationRelativeTo(null);
     }// </editor-fold>
 
+    /**
+     * Cancel button action performed.
+     *
+     * @param evt the evt
+     */
     private void cancelButtonActionPerformed(java.awt.event.ActionEvent evt) {
         this.dispose();
     }
 
+    /**
+     * Submit button action performed.
+     *
+     * @param evt the evt
+     */
     private void submitButtonActionPerformed(java.awt.event.ActionEvent evt) {
         try {
                 ToDo todo = ToDo.create(titleTextField.getText());

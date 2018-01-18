@@ -72,6 +72,8 @@ public class DatabaseManager {
 
     /**
      * Create the data directory if it's missing
+     *
+     * @throws IllegalStateException the illegal state exception
      */
     private void createDataDirIfMissing() throws IllegalStateException {
         File directory = new File(Settings.getDataDir());
@@ -104,6 +106,7 @@ public class DatabaseManager {
      * Save a single object.
      *
      * @param todo the object to save
+     * @return the to do
      * @throws SQLException on SQL exception
      */
     public static ToDo storeToDo(ToDo todo) throws SQLException {

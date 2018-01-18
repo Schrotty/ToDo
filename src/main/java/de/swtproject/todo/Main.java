@@ -7,7 +7,16 @@ import de.swtproject.todo.core.database.DatabaseManager;
 import java.sql.SQLException;
 import java.util.List;
 
+/**
+ * The type Main.
+ */
 public class Main {
+    /**
+     * The entry point of application.
+     *
+     * @param args the input arguments
+     * @throws SQLException the sql exception
+     */
     public static void main(String[] args) throws SQLException {
         //refresh database
         DatabaseManager.phoenix();

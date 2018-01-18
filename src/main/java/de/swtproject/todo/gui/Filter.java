@@ -5,30 +5,65 @@ import javax.swing.*;
 import java.util.Objects;
 
 
+/**
+ * The type Filter.
+ */
 public class Filter extends javax.swing.JFrame {
 
+    /**
+     * The Mainsite.
+     */
     protected Mainsite mainsite;
 
-    // Variables declaration - do not modify
+    /**
+     * The Apply button.
+     */
+// Variables declaration - do not modify
     private javax.swing.JButton applyButton;
+    /**
+     * The Cancel button.
+     */
     private javax.swing.JButton cancelButton;
+    /**
+     * The Choose combo box.
+     */
     private javax.swing.JComboBox<String> chooseComboBox;
+    /**
+     * The Filter panel.
+     */
     private javax.swing.JPanel filterPanel;
+    /**
+     * The Mainpanel.
+     */
     private javax.swing.JPanel mainpanel;
+    /**
+     * The Value button.
+     */
     private javax.swing.JButton valueButton;
+    /**
+     * The Value panel.
+     */
     private javax.swing.JPanel valuePanel;
+    /**
+     * The Value text field.
+     */
     private javax.swing.JTextField valueTextField;
     // End of variables declaration
+
     /**
      * Creates new form Filter
-     * @param mainsite
-     * @param modal
+     *
+     * @param mainsite the mainsite
+     * @param modal    the modal
      */
     public Filter(Mainsite mainsite, boolean modal) {
         this.mainsite = mainsite;
         initComponents();
     }
 
+    /**
+     * Init components.
+     */
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">
     private void initComponents() {
@@ -161,13 +196,29 @@ public class Filter extends javax.swing.JFrame {
         setLocationRelativeTo(null);
     }// </editor-fold>
 
+    /**
+     * Cancel button action performed.
+     *
+     * @param evt the evt
+     */
     private void cancelButtonActionPerformed(java.awt.event.ActionEvent evt) {
         this.dispose();
     }
 
+    /**
+     * Apply button action performed.
+     *
+     * @param evt the evt
+     */
     private void applyButtonActionPerformed(java.awt.event.ActionEvent evt){
 
     }
+
+    /**
+     * Choose combo box action performed.
+     *
+     * @param evt the evt
+     */
     private void chooseComboBoxActionPerformed(java.awt.event.ActionEvent evt) {
         // TODO add your handling code here:
     }

@@ -4,49 +4,143 @@ import de.swtproject.todo.core.ToDo;
 import de.swtproject.todo.core.database.DatabaseManager;
 
 import javax.swing.*;
-import javax.swing.event.ListSelectionEvent;
-import javax.swing.event.ListSelectionListener;
-import javax.swing.table.DefaultTableModel;
 import java.awt.*;
 import java.sql.SQLException;
 import java.text.SimpleDateFormat;
 import java.util.Objects;
 
+/**
+ * The type Mainsite.
+ */
 public class Mainsite extends javax.swing.JFrame {
+    /**
+     * The Create to do frame.
+     */
     protected CreateToDo createToDoFrame;
+    /**
+     * The Filter frame.
+     */
     protected Filter filterFrame;
 
-   public static final int fontsize = 16;
-    // Variables declaration - do not modify
+    /**
+     * The constant fontsize.
+     */
+    public static final int fontsize = 16;
+    /**
+     * The Todo table.
+     */
+// Variables declaration - do not modify
     private javax.swing.JList todoTable;
+    /**
+     * The Affilation label.
+     */
     private javax.swing.JLabel affilationLabel;
+    /**
+     * The Archiv button.
+     */
     private javax.swing.JButton archivButton;
+    /**
+     * The Edit button.
+     */
     private javax.swing.JButton editButton;
+    /**
+     * The Create milestone menu.
+     */
     private javax.swing.JMenuItem createMilestoneMenu;
+    /**
+     * The Create notifiy point menu.
+     */
     private javax.swing.JMenuItem createNotifiyPointMenu;
+    /**
+     * The Create to do menu.
+     */
     private javax.swing.JMenuItem createToDoMenu;
+    /**
+     * The Data panel.
+     */
     private javax.swing.JPanel dataPanel;
+    /**
+     * The Date label.
+     */
     private javax.swing.JLabel dateLabel;
+    /**
+     * The Deadline label.
+     */
     private javax.swing.JLabel deadlineLabel;
+    /**
+     * The Delete button.
+     */
     private javax.swing.JButton deleteButton;
+    /**
+     * The Description.
+     */
     private javax.swing.JTextArea description;
+    /**
+     * The Filter button.
+     */
     private javax.swing.JButton filterButton;
+    /**
+     * The Finish button.
+     */
     private javax.swing.JButton finishButton;
+    /**
+     * The Left panel.
+     */
     private javax.swing.JPanel leftPanel;
+    /**
+     * The Menu create.
+     */
     private javax.swing.JMenu menuCreate;
+    /**
+     * The Menubar.
+     */
     private javax.swing.JMenuBar menubar;
+    /**
+     * The Milestone combo box.
+     */
     private javax.swing.JComboBox<String> milestoneComboBox;
+    /**
+     * The Milestone label.
+     */
     private javax.swing.JLabel milestoneLabel;
+    /**
+     * The Milestone panel.
+     */
     private javax.swing.JPanel milestonePanel;
+    /**
+     * The Notifypoint label.
+     */
     private javax.swing.JLabel notifypointLabel;
+    /**
+     * The Prod button.
+     */
     private javax.swing.JButton prodButton;
+    /**
+     * The Right panel.
+     */
     private javax.swing.JPanel rightPanel;
+    /**
+     * The Scroll description.
+     */
     private javax.swing.JScrollPane scrollDescription;
+    /**
+     * The Start label.
+     */
     private javax.swing.JLabel startLabel;
+    /**
+     * The Title.
+     */
     private javax.swing.JLabel title;
+    /**
+     * The Todo panel.
+     */
     private javax.swing.JPanel todoPanel;
+    /**
+     * The Todo scroll pane.
+     */
     private javax.swing.JScrollPane todoScrollPane;
     // End of variables declaration
+
     /**
      * Creates new form Main
      */
@@ -55,6 +149,9 @@ public class Mainsite extends javax.swing.JFrame {
         loadOnTable();
     }
 
+    /**
+     * Load on table.
+     */
     private void loadOnTable(){
         try {
             ToDo to = null;
@@ -72,6 +169,9 @@ public class Mainsite extends javax.swing.JFrame {
         }
     }
 
+    /**
+     * Init components.
+     */
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">
     private void initComponents() {
@@ -385,6 +485,11 @@ public class Mainsite extends javax.swing.JFrame {
         setLocationRelativeTo(null);
     }// </editor-fold>
 
+    /**
+     * Fill view.
+     *
+     * @param todo the todo
+     */
     private void fillView(ToDo todo) {
         if (todo != null) {
             SimpleDateFormat formatter = new SimpleDateFormat("dd.MM.yyyy");
@@ -397,6 +502,11 @@ public class Mainsite extends javax.swing.JFrame {
         }
     }
 
+    /**
+     * Create to do menu action performed.
+     *
+     * @param evt the evt
+     */
     private void createToDoMenuActionPerformed(java.awt.event.ActionEvent evt) {
         JDialog create = new CreateToDo(this);
 
@@ -406,30 +516,57 @@ public class Mainsite extends javax.swing.JFrame {
         create.setModalityType (Dialog.ModalityType.APPLICATION_MODAL);
     }
 
+    /**
+     * Filter button action performed.
+     *
+     * @param evt the evt
+     */
     private void filterButtonActionPerformed(java.awt.event.ActionEvent evt) {
         Filter filter = new Filter(this, true);
         filter.setVisible(true);
     }
 
+    /**
+     * Prod button action performed.
+     *
+     * @param evt the evt
+     */
     private void prodButtonActionPerformed(java.awt.event.ActionEvent evt) {
         // TODO add your handling code here:
     }
 
+    /**
+     * Archiv button action performed.
+     *
+     * @param evt the evt
+     */
     private void archivButtonActionPerformed(java.awt.event.ActionEvent evt) {
         // TODO add your handling code here:
     }
 
+    /**
+     * Edit button action performed.
+     *
+     * @param evt the evt
+     */
     private void editButtonActionPerformed(java.awt.event.ActionEvent evt) {
 
 
 
     }
 
+    /**
+     * Milestone combo box action performed.
+     *
+     * @param evt the evt
+     */
     private void milestoneComboBoxActionPerformed(java.awt.event.ActionEvent evt) {
         // TODO add your handling code here:
     }
 
     /**
+     * Main.
+     *
      * @param args the command line arguments
      */
     public static void main(String args[]) {
@@ -465,6 +602,11 @@ public class Mainsite extends javax.swing.JFrame {
     }
 
 
+    /**
+     * Update list.
+     *
+     * @param toDo the to do
+     */
     public void updateList(ToDo toDo) {
         if (toDo != null) {
             DefaultListModel model = (DefaultListModel) todoTable.getModel();
