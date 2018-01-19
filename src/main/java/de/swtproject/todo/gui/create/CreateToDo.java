@@ -1,14 +1,9 @@
-package de.swtproject.todo.gui;
+package de.swtproject.todo.gui.create;
 
 import com.toedter.calendar.JDateChooser;
 import de.swtproject.todo.core.IntervalType;
-import de.swtproject.todo.core.ToDo;
-import de.swtproject.todo.core.database.DatabaseManager;
 
-import javax.swing.*;
-import java.sql.SQLException;
-import java.util.Calendar;
-import java.util.Date;
+import java.awt.event.ActionListener;
 
 
 /**
@@ -19,7 +14,7 @@ public class CreateToDo extends javax.swing.JDialog {
     /**
      * The Mainsite.
      */
-    protected Mainsite mainsite;
+    private static final int fontsize = 16;
 
     /**
      * The Cancel button.
@@ -33,11 +28,11 @@ public class CreateToDo extends javax.swing.JDialog {
     /**
      * The Date to start button.
      */
-    private JDateChooser dateToStartButton;
+    JDateChooser dateToStartButton;
     /**
      * The Deadline button.
      */
-    private JDateChooser deadlineButton;
+    JDateChooser deadlineButton;
     /**
      * The Description panel.
      */
@@ -49,11 +44,11 @@ public class CreateToDo extends javax.swing.JDialog {
     /**
      * The Description text area.
      */
-    private javax.swing.JTextArea descriptionTextArea;
+    javax.swing.JTextArea descriptionTextArea;
     /**
      * The Interval combo box.
      */
-    private javax.swing.JComboBox<String> intervalComboBox;
+    javax.swing.JComboBox<String> intervalComboBox;
     /**
      * The Interval panel.
      */
@@ -81,21 +76,17 @@ public class CreateToDo extends javax.swing.JDialog {
     /**
      * The Title text field.
      */
-    private javax.swing.JTextField titleTextField;
+    javax.swing.JTextField titleTextField;
     /**
      * The Todo create label.
      */
     private javax.swing.JLabel todoCreateLabel;
     // End of variables declaration
 
-
     /**
      * Instantiates a new Create to do.
-     *
-     * @param mainSite the main site
      */
-    public CreateToDo(Mainsite mainSite) {
-        this.mainsite = mainSite;
+    CreateToDo() {
         initComponents();
     }
 
@@ -124,56 +115,15 @@ public class CreateToDo extends javax.swing.JDialog {
 
         setTitle("Create ToDo");
 
-        cancelButton.setFont(new java.awt.Font("Tahoma", 1, mainsite.fontsize));
+        cancelButton.setFont(new java.awt.Font("Tahoma", 1, fontsize));
         cancelButton.setText("Cancel");
         cancelButton.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED, null, new java.awt.Color(102, 102, 102), null, null));
-        cancelButton.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                cancelButtonActionPerformed(evt);
-            }
-        });
 
-        submitButton.setFont(new java.awt.Font("Tahoma", 1, mainsite.fontsize));
+        submitButton.setFont(new java.awt.Font("Tahoma", 1, fontsize));
         submitButton.setText("Submit");
         submitButton.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED, new java.awt.Color(255, 255, 255), new java.awt.Color(102, 102, 102), new java.awt.Color(255, 255, 255), new java.awt.Color(255, 255, 255)));
-        submitButton.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                if (!validateForm()) {
-                    JOptionPane.showMessageDialog(submitButton.getRootPane(), "Invalid input!");
-                    return;
-                }
 
-                submitButtonActionPerformed(evt);
-            }
-
-            /**
-             * Validates the creation form.
-             *
-             * @return is form input valid
-             */
-            private boolean validateForm() {
-                boolean isValid = true;
-
-                if (dateToStartButton.getDate() != null) {
-                    boolean sameDay = dateToStartButton.getCalendar().get(Calendar.YEAR) == Calendar.getInstance().get(Calendar.YEAR) &&
-                            dateToStartButton.getCalendar().get(Calendar.DAY_OF_YEAR) == Calendar.getInstance().get(Calendar.DAY_OF_YEAR);
-
-                    if (!sameDay) isValid = dateToStartButton.getDate().after(new Date());
-                }
-
-                if (dateToStartButton.getDate() != null && deadlineButton.getDate() != null && isValid) {
-                    isValid = dateToStartButton.getDate().before(deadlineButton.getDate());
-                }
-
-                if (titleTextField.getText().isEmpty() || titleTextField.getText() == null) {
-                    isValid = false;
-                }
-
-                return isValid;
-            }
-        });
-
-        titlePanel.setBorder(javax.swing.BorderFactory.createTitledBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED, null, new java.awt.Color(102, 102, 102), null, null), "Title*", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 1, mainsite.fontsize)));
+        titlePanel.setBorder(javax.swing.BorderFactory.createTitledBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED, null, new java.awt.Color(102, 102, 102), null, null), "Title*", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 1, fontsize)));
 
         titleTextField.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         titleTextField.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.LOWERED));
@@ -193,9 +143,9 @@ public class CreateToDo extends javax.swing.JDialog {
                 (new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED, null, new java.awt.Color
                                 (102, 102, 102), null, null),
                         "Description", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION,
-                        new java.awt.Font("Tahoma", 1, mainsite.fontsize)));
+                        new java.awt.Font("Tahoma", 1, fontsize)));
 
-        descriptionTextArea.setFont(new java.awt.Font("Tahoma", 0, mainsite.fontsize));
+        descriptionTextArea.setFont(new java.awt.Font("Tahoma", 0, fontsize));
         descriptionTextArea.setColumns(20);
         descriptionTextArea.setRows(5);
         descriptionTextArea.setWrapStyleWord(true);
@@ -218,9 +168,9 @@ public class CreateToDo extends javax.swing.JDialog {
         milestonePanel.setBorder(javax.swing.BorderFactory.createTitledBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED,
                         null, new java.awt.Color(102, 102, 102), null, null),
                 "Milestone", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font
-                        ("Tahoma", 1, mainsite.fontsize)));
+                        ("Tahoma", 1, fontsize)));
 
-        milestonesOptionsComboBox.setFont(new java.awt.Font("Tahoma", 1, mainsite.fontsize));
+        milestonesOptionsComboBox.setFont(new java.awt.Font("Tahoma", 1, fontsize));
         milestonesOptionsComboBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[]{"None"}));
         milestonesOptionsComboBox.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED,
                 null, new java.awt.Color(102, 102, 102), null, null));
@@ -239,9 +189,9 @@ public class CreateToDo extends javax.swing.JDialog {
         intervalPanel.setBorder(javax.swing.BorderFactory.createTitledBorder(new javax.swing.border.SoftBevelBorder
                         (javax.swing.border.BevelBorder.RAISED, null, new java.awt.Color(102, 102, 102),
                                 null, null), "Interval", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION,
-                javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 1, mainsite.fontsize)));
+                javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 1, fontsize)));
 
-        intervalComboBox.setFont(new java.awt.Font("Tahoma", 1, mainsite.fontsize));
+        intervalComboBox.setFont(new java.awt.Font("Tahoma", 1, fontsize));
         //intervalComboBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Nothing Selected" }));
         intervalComboBox.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED,
                 null, new java.awt.Color(102, 102, 102), null, null));
@@ -261,14 +211,14 @@ public class CreateToDo extends javax.swing.JDialog {
                 (new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED,
                                 null, new java.awt.Color(102, 102, 102),
                                 null, null), "Date to Start", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION,
-                        javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 1, mainsite.fontsize)));
+                        javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 1, fontsize)));
 
 
         deadlineButton.setBorder(javax.swing.BorderFactory.createTitledBorder
                 (new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED,
                                 null, new java.awt.Color(102, 102, 102),
                                 null, null), "Deadline", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION,
-                        javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 1, mainsite.fontsize)));
+                        javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 1, fontsize)));
 
 
         javax.swing.GroupLayout mainpanelLayout = new javax.swing.GroupLayout(mainpanel);
@@ -348,34 +298,11 @@ public class CreateToDo extends javax.swing.JDialog {
         setLocationRelativeTo(null);
     }// </editor-fold>
 
-    /**
-     * Cancel button action performed.
-     *
-     * @param evt the evt
-     */
-    private void cancelButtonActionPerformed(java.awt.event.ActionEvent evt) {
-        this.dispose();
+    public void setCancelButtonListener(ActionListener e) {
+        cancelButton.addActionListener(e);
     }
 
-    /**
-     * Submit button action performed.
-     *
-     * @param evt the evt
-     */
-    private void submitButtonActionPerformed(java.awt.event.ActionEvent evt) {
-        try {
-            ToDo todo = ToDo.create(titleTextField.getText());
-
-            todo.setDescription(descriptionTextArea.getText());
-            todo.setInterval(IntervalType.valueOf(intervalComboBox.getSelectedItem().toString().toUpperCase()));
-            todo.setStart(dateToStartButton.getDate());
-            todo.setDeadline(deadlineButton.getDate());
-
-            mainsite.updateList(DatabaseManager.storeToDo(todo));
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-
-        this.dispose();
+    public void setSubmitButtonListener(ActionListener e) {
+        submitButton.addActionListener(e);
     }
 }

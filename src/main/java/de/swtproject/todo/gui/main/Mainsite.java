@@ -1,12 +1,11 @@
-package de.swtproject.todo.gui;
+package de.swtproject.todo.gui.main;
 
-import de.swtproject.todo.core.ToDo;
-import de.swtproject.todo.core.database.DatabaseManager;
+import de.swtproject.todo.gui.Filter;
+import de.swtproject.todo.gui.create.CreateToDo;
 
 import javax.swing.*;
-import java.awt.*;
-import java.sql.SQLException;
-import java.text.SimpleDateFormat;
+import javax.swing.event.ListSelectionListener;
+import java.awt.event.ActionListener;
 import java.util.Objects;
 
 /**
@@ -17,6 +16,7 @@ public class Mainsite extends javax.swing.JFrame {
      * The constant fontsize.
      */
     public static final int fontsize = 16;
+
     /**
      * The Create to do frame.
      */
@@ -29,7 +29,7 @@ public class Mainsite extends javax.swing.JFrame {
      * The Todo table.
      */
 // Variables declaration - do not modify
-    private javax.swing.JList todoTable;
+    javax.swing.JList todoTable;
     /**
      * The Affilation label.
      */
@@ -61,7 +61,7 @@ public class Mainsite extends javax.swing.JFrame {
     /**
      * The Date label.
      */
-    private javax.swing.JLabel dateLabel;
+    javax.swing.JLabel dateLabel;
     /**
      * The Deadline label.
      */
@@ -73,7 +73,7 @@ public class Mainsite extends javax.swing.JFrame {
     /**
      * The Description.
      */
-    private javax.swing.JTextArea description;
+    javax.swing.JTextArea description;
     /**
      * The Filter button.
      */
@@ -109,7 +109,7 @@ public class Mainsite extends javax.swing.JFrame {
     /**
      * The Notifypoint label.
      */
-    private javax.swing.JLabel notifypointLabel;
+    javax.swing.JLabel notifypointLabel;
     /**
      * The Prod button.
      */
@@ -129,11 +129,13 @@ public class Mainsite extends javax.swing.JFrame {
     /**
      * The Title.
      */
-    private javax.swing.JLabel title;
+    javax.swing.JLabel title;
+
     /**
      * The Todo panel.
      */
     private javax.swing.JPanel todoPanel;
+
     /**
      * The Todo scroll pane.
      */
@@ -144,8 +146,18 @@ public class Mainsite extends javax.swing.JFrame {
      * Creates new form Main
      */
     public Mainsite() {
+        try {
+            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
+                if ("Nimbus".equals(info.getName())) {
+                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
+                    break;
+                }
+            }
+        } catch (ClassNotFoundException | InstantiationException | IllegalAccessException | UnsupportedLookAndFeelException ex) {
+            java.util.logging.Logger.getLogger(Mainsite.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        }
+
         initComponents();
-        loadOnTable();
     }
 
     /**
@@ -154,55 +166,7 @@ public class Mainsite extends javax.swing.JFrame {
      * @param args the command line arguments
      */
     public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(Mainsite.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(Mainsite.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(Mainsite.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(Mainsite.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
-
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new Mainsite().setVisible(true);
-            }
-        });
-    }
-
-    /**
-     * Load on table.
-     */
-    private void loadOnTable() {
-        try {
-            ToDo to = null;
-            DefaultListModel model = new DefaultListModel();
-            for (ToDo todo : DatabaseManager.getCollection(true)) {
-                if (to == null) to = todo;
-
-                model.addElement(todo);
-            }
-
-            todoTable.setModel(model);
-            fillView(to);
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
+        java.awt.EventQueue.invokeLater(() -> new Mainsite().setVisible(true));
     }
 
     /**
@@ -211,7 +175,6 @@ public class Mainsite extends javax.swing.JFrame {
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">
     private void initComponents() {
-
         leftPanel = new javax.swing.JPanel();
         todoScrollPane = new javax.swing.JScrollPane();
         todoTable = new javax.swing.JList<>();
@@ -249,10 +212,7 @@ public class Mainsite extends javax.swing.JFrame {
 
         todoScrollPane.setViewportBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED, null, new java.awt.Color(102, 102, 102), null, null));
 
-        //todoTable.setAutoCreateRowSorter(true);
         todoTable.setFont(new java.awt.Font("Tahoma", 1, fontsize));
-        todoTable.addListSelectionListener(e -> fillView((ToDo) todoTable.getSelectedValue()));
-
         todoScrollPane.setViewportView(todoTable);
 
         filterButton.setFont(new java.awt.Font("Tahoma", 1, fontsize));
@@ -262,31 +222,16 @@ public class Mainsite extends javax.swing.JFrame {
         prodButton.setFont(new java.awt.Font("Tahoma", 1, fontsize));
         prodButton.setText("Prod");
         prodButton.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED, null, new java.awt.Color(102, 102, 102), null, null));
-        prodButton.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                prodButtonActionPerformed(evt);
-            }
-        });
 
         archivButton.setFont(new java.awt.Font("Tahoma", 1, fontsize));
         archivButton.setText("Archiv");
         archivButton.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED, null, new java.awt.Color(102, 102, 102), null, null));
-        archivButton.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                archivButtonActionPerformed(evt);
-            }
-        });
 
         milestonePanel.setBorder(javax.swing.BorderFactory.createTitledBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED, null, new java.awt.Color(102, 102, 102), null, null), "Milestones", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 1, fontsize)));
 
         milestoneComboBox.setFont(new java.awt.Font("Tahoma", 1, fontsize));
         milestoneComboBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[]{"None"}));
         milestoneComboBox.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED, null, new java.awt.Color(102, 102, 102), null, null));
-        milestoneComboBox.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                milestoneComboBoxActionPerformed(evt);
-            }
-        });
 
         javax.swing.GroupLayout milestonePanelLayout = new javax.swing.GroupLayout(milestonePanel);
         milestonePanel.setLayout(milestonePanelLayout);
@@ -431,11 +376,6 @@ public class Mainsite extends javax.swing.JFrame {
         editButton.setFont(new java.awt.Font("Tahoma", 1, fontsize));
         editButton.setText("Edit");
         editButton.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED, null, new java.awt.Color(102, 102, 102), null, null));
-        editButton.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                editButtonActionPerformed(evt);
-            }
-        });
 
         javax.swing.GroupLayout rightPanelLayout = new javax.swing.GroupLayout(rightPanel);
         rightPanel.setLayout(rightPanelLayout);
@@ -476,7 +416,6 @@ public class Mainsite extends javax.swing.JFrame {
         createToDoMenu.setFont(new java.awt.Font("Tahoma", 1, fontsize));
         createToDoMenu.setIcon(new javax.swing.ImageIcon(Objects.requireNonNull(getClass().getClassLoader().getResource("icon/ToDoCreate.png")))); // NOI18N
         createToDoMenu.setText("Create ToDo");
-        createToDoMenu.addActionListener(this::createToDoMenuActionPerformed);
         menuCreate.add(createToDoMenu);
 
         createMilestoneMenu.setFont(new java.awt.Font("Tahoma", 1, fontsize));
@@ -511,90 +450,15 @@ public class Mainsite extends javax.swing.JFrame {
                                         .addComponent(rightPanel, javax.swing.GroupLayout.DEFAULT_SIZE, 880, Short.MAX_VALUE)))
         );
 
-
         pack();
         setLocationRelativeTo(null);
     }// </editor-fold>
 
-    /**
-     * Fill view.
-     *
-     * @param todo the todo
-     */
-    private void fillView(ToDo todo) {
-        if (todo != null) {
-            SimpleDateFormat formatter = new SimpleDateFormat("dd.MM.yyyy");
-
-            title.setText(todo.getTitle());
-            description.setText(todo.getDescription());
-
-            dateLabel.setText(todo.getStart() != null ? formatter.format(todo.getStart()) : "-");
-            notifypointLabel.setText(todo.getDeadline() != null ? formatter.format(todo.getDeadline()) : "-");
-        }
+    public void setCreateToDoMenuListener(ActionListener e) {
+        createToDoMenu.addActionListener(e);
     }
 
-    /**
-     * Create to do menu action performed.
-     *
-     * @param evt the evt
-     */
-    private void createToDoMenuActionPerformed(java.awt.event.ActionEvent evt) {
-        JDialog create = new CreateToDo(this);
-
-        create.setVisible(true);
-        create.setModal(true);
-        create.setAlwaysOnTop(true);
-        create.setModalityType(Dialog.ModalityType.APPLICATION_MODAL);
-    }
-
-    /**
-     * Prod button action performed.
-     *
-     * @param evt the evt
-     */
-    private void prodButtonActionPerformed(java.awt.event.ActionEvent evt) {
-        // TODO add your handling code here:
-    }
-
-    /**
-     * Archiv button action performed.
-     *
-     * @param evt the evt
-     */
-    private void archivButtonActionPerformed(java.awt.event.ActionEvent evt) {
-        // TODO add your handling code here:
-    }
-
-    /**
-     * Edit button action performed.
-     *
-     * @param evt the evt
-     */
-    private void editButtonActionPerformed(java.awt.event.ActionEvent evt) {
-
-
-    }
-
-    /**
-     * Milestone combo box action performed.
-     *
-     * @param evt the evt
-     */
-    private void milestoneComboBoxActionPerformed(java.awt.event.ActionEvent evt) {
-        // TODO add your handling code here:
-    }
-
-    /**
-     * Update list.
-     *
-     * @param toDo the to do
-     */
-    public void updateList(ToDo toDo) {
-        if (toDo != null) {
-            DefaultListModel model = (DefaultListModel) todoTable.getModel();
-            model.addElement(toDo);
-
-            fillView(toDo);
-        }
+    public void setToDoTabelListener(ListSelectionListener e) {
+        todoTable.addListSelectionListener(e);
     }
 }
