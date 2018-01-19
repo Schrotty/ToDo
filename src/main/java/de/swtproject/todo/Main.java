@@ -11,6 +11,7 @@ import java.util.List;
  * The type Main.
  */
 public class Main {
+
     /**
      * The entry point of application.
      *
@@ -31,7 +32,7 @@ public class Main {
         DatabaseManager.storeToDo(new ToDo("Test 3"));
 
         DatabaseManager.getSingleToDo(2).finish();
-        
+
         //DatabaseManager.getArchive().forEach(System.out::println);
         List<ToDo> list = DatabaseManager.getCollection(true);
 

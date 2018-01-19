@@ -85,7 +85,7 @@ public class Filter extends javax.swing.JFrame {
 
         filterPanel.setBorder(javax.swing.BorderFactory.createTitledBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED, null, new java.awt.Color(102, 102, 102), null, null), "Filter"));
 
-        chooseComboBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Please Choose" }));
+        chooseComboBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[]{"Please Choose"}));
         chooseComboBox.setBorder(null);
         chooseComboBox.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -161,8 +161,10 @@ public class Filter extends javax.swing.JFrame {
         applyButton.setFont(new java.awt.Font("Tahoma", 1, mainsite.fontsize));
         applyButton.setText("Apply");
         applyButton.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED, null, new java.awt.Color(102, 102, 102), null, null));
-        applyButton.addActionListener(new java.awt.event.ActionListener(){
-            public void actionPerformed(java.awt.event.ActionEvent evt) { applyButtonActionPerformed(evt);}
+        applyButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                applyButtonActionPerformed(evt);
+            }
         });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -210,7 +212,7 @@ public class Filter extends javax.swing.JFrame {
      *
      * @param evt the evt
      */
-    private void applyButtonActionPerformed(java.awt.event.ActionEvent evt){
+    private void applyButtonActionPerformed(java.awt.event.ActionEvent evt) {
 
     }
 

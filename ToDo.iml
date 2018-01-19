@@ -12,7 +12,6 @@
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
     <orderEntry type="library" name="Arquillian JUnit:Release" level="project" />
-    <orderEntry type="library" name="Maven: com.toedter:jcalendar:1.4" level="project" />
     <orderEntry type="library" name="Maven: com.j256.ormlite:ormlite-core:5.0" level="project" />
     <orderEntry type="library" name="Maven: com.j256.ormlite:ormlite-jdbc:5.0" level="project" />
     <orderEntry type="library" name="Maven: com.toedter:jcalendar:1.4" level="project" />

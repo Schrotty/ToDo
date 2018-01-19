@@ -14,7 +14,6 @@ import de.swtproject.todo.util.Settings;
 
 import java.io.File;
 import java.sql.SQLException;
-import java.util.LinkedList;
 import java.util.List;
 
 /**
@@ -28,28 +27,19 @@ import java.util.List;
 public class DatabaseManager {
 
     /**
-     * The connection source used by the manager.
-     */
-    private ConnectionSource connectionSource;
-
-    /**
-     * The database access object used by the manager.
-     */
-    public Dao<ToDo,String> todoAccess;
-
-    /**
      * DatabaseManager singleton.
      */
     private static DatabaseManager self = new DatabaseManager();
 
     /**
-     * Get DatabaseManager instance.
-     *
-     * @return the instance
+     * The database access object used by the manager.
      */
-    public static DatabaseManager getInstance() {
-        return self;
-    }
+    public Dao<ToDo, String> todoAccess;
+
+    /**
+     * The connection source used by the manager.
+     */
+    private ConnectionSource connectionSource;
 
     /**
      * Constructor for a new DatabaseManager
@@ -71,15 +61,12 @@ public class DatabaseManager {
     }
 
     /**
-     * Create the data directory if it's missing
+     * Get DatabaseManager instance.
      *
-     * @throws IllegalStateException the illegal state exception
+     * @return the instance
      */
-    private void createDataDirIfMissing() throws IllegalStateException {
-        File directory = new File(Settings.getDataDir());
-        if (!directory.exists()) {
-            if(!directory.mkdir()) throw new IllegalStateException("data directory not created!");
-        }
+    public static DatabaseManager getInstance() {
+        return self;
     }
 
     /**
@@ -140,8 +127,18 @@ public class DatabaseManager {
         PreparedQuery<ToDo> preparedQuery = queryBuilder.prepare();
 
         selectArg.setValue(loadProduction);
-        List result = self.todoAccess.query(preparedQuery);
+        return self.todoAccess.query(preparedQuery);
+    }
 
-        return result == null ? new LinkedList<>() : result;
+    /**
+     * Create the data directory if it's missing
+     *
+     * @throws IllegalStateException the illegal state exception
+     */
+    private void createDataDirIfMissing() throws IllegalStateException {
+        File directory = new File(Settings.getDataDir());
+        if (!directory.exists()) {
+            if (!directory.mkdir()) throw new IllegalStateException("data directory not created!");
+        }
     }
 }

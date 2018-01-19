@@ -35,7 +35,7 @@ public class ToDo {
     /**
      * The Interval.
      */
-    @DatabaseField(dataType = DataType.ENUM_INTEGER) //TODO: Change to ENUM_INTEGER and add table
+    @DatabaseField(dataType = DataType.ENUM_INTEGER)
     private IntervalType interval;
 
     /**
@@ -76,6 +76,16 @@ public class ToDo {
      */
     public ToDo(String title) {
         this.title = title;
+    }
+
+    /**
+     * Create a new {@link ToDo} with given title.
+     *
+     * @param title the given title
+     * @return the created TODOGUI
+     */
+    public static ToDo create(String title) {
+        return new ToDo(title);
     }
 
     /**
@@ -187,16 +197,6 @@ public class ToDo {
     }
 
     /**
-     * Create a new {@link ToDo} with given title.
-     *
-     * @param title the given title
-     * @return the created TODOGUI
-     */
-    public static ToDo create(String title) {
-        return new ToDo(title);
-    }
-
-    /**
      * Finish a todo.
      *
      * @return finishing successful?
@@ -231,7 +231,6 @@ public class ToDo {
      * Get the string repro.
      *
      * @return updating successful?
-     * @throws SQLException on SQL exception
      */
     public String toString() {
         return title;

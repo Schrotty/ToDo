@@ -14,6 +14,10 @@ import java.util.Objects;
  */
 public class Mainsite extends javax.swing.JFrame {
     /**
+     * The constant fontsize.
+     */
+    public static final int fontsize = 16;
+    /**
      * The Create to do frame.
      */
     protected CreateToDo createToDoFrame;
@@ -21,11 +25,6 @@ public class Mainsite extends javax.swing.JFrame {
      * The Filter frame.
      */
     protected Filter filterFrame;
-
-    /**
-     * The constant fontsize.
-     */
-    public static final int fontsize = 16;
     /**
      * The Todo table.
      */
@@ -150,13 +149,50 @@ public class Mainsite extends javax.swing.JFrame {
     }
 
     /**
+     * Main.
+     *
+     * @param args the command line arguments
+     */
+    public static void main(String args[]) {
+        /* Set the Nimbus look and feel */
+        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
+        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
+         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html
+         */
+        try {
+            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
+                if ("Nimbus".equals(info.getName())) {
+                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
+                    break;
+                }
+            }
+        } catch (ClassNotFoundException ex) {
+            java.util.logging.Logger.getLogger(Mainsite.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (InstantiationException ex) {
+            java.util.logging.Logger.getLogger(Mainsite.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (IllegalAccessException ex) {
+            java.util.logging.Logger.getLogger(Mainsite.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
+            java.util.logging.Logger.getLogger(Mainsite.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        }
+        //</editor-fold>
+
+        /* Create and display the form */
+        java.awt.EventQueue.invokeLater(new Runnable() {
+            public void run() {
+                new Mainsite().setVisible(true);
+            }
+        });
+    }
+
+    /**
      * Load on table.
      */
-    private void loadOnTable(){
+    private void loadOnTable() {
         try {
             ToDo to = null;
             DefaultListModel model = new DefaultListModel();
-            for(ToDo todo : DatabaseManager.getCollection(true)){
+            for (ToDo todo : DatabaseManager.getCollection(true)) {
                 if (to == null) to = todo;
 
                 model.addElement(todo);
@@ -215,7 +251,7 @@ public class Mainsite extends javax.swing.JFrame {
 
         //todoTable.setAutoCreateRowSorter(true);
         todoTable.setFont(new java.awt.Font("Tahoma", 1, fontsize));
-        todoTable.addListSelectionListener(e -> fillView((ToDo)todoTable.getSelectedValue()));
+        todoTable.addListSelectionListener(e -> fillView((ToDo) todoTable.getSelectedValue()));
 
         todoScrollPane.setViewportView(todoTable);
 
@@ -241,10 +277,10 @@ public class Mainsite extends javax.swing.JFrame {
             }
         });
 
-        milestonePanel.setBorder(javax.swing.BorderFactory.createTitledBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED, null, new java.awt.Color(102, 102, 102), null, null), "Milestones", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 1, fontsize) ));
+        milestonePanel.setBorder(javax.swing.BorderFactory.createTitledBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED, null, new java.awt.Color(102, 102, 102), null, null), "Milestones", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 1, fontsize)));
 
         milestoneComboBox.setFont(new java.awt.Font("Tahoma", 1, fontsize));
-        milestoneComboBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "None" }));
+        milestoneComboBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[]{"None"}));
         milestoneComboBox.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED, null, new java.awt.Color(102, 102, 102), null, null));
         milestoneComboBox.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -510,20 +546,10 @@ public class Mainsite extends javax.swing.JFrame {
     private void createToDoMenuActionPerformed(java.awt.event.ActionEvent evt) {
         JDialog create = new CreateToDo(this);
 
-        create.setVisible (true);
-        create.setModal (true);
-        create.setAlwaysOnTop (true);
-        create.setModalityType (Dialog.ModalityType.APPLICATION_MODAL);
-    }
-
-    /**
-     * Filter button action performed.
-     *
-     * @param evt the evt
-     */
-    private void filterButtonActionPerformed(java.awt.event.ActionEvent evt) {
-        Filter filter = new Filter(this, true);
-        filter.setVisible(true);
+        create.setVisible(true);
+        create.setModal(true);
+        create.setAlwaysOnTop(true);
+        create.setModalityType(Dialog.ModalityType.APPLICATION_MODAL);
     }
 
     /**
@@ -552,7 +578,6 @@ public class Mainsite extends javax.swing.JFrame {
     private void editButtonActionPerformed(java.awt.event.ActionEvent evt) {
 
 
-
     }
 
     /**
@@ -565,44 +590,6 @@ public class Mainsite extends javax.swing.JFrame {
     }
 
     /**
-     * Main.
-     *
-     * @param args the command line arguments
-     */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(Mainsite.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(Mainsite.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(Mainsite.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(Mainsite.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
-
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new Mainsite().setVisible(true);
-            }
-        });
-    }
-
-
-    /**
      * Update list.
      *
      * @param toDo the to do
@@ -611,6 +598,8 @@ public class Mainsite extends javax.swing.JFrame {
         if (toDo != null) {
             DefaultListModel model = (DefaultListModel) todoTable.getModel();
             model.addElement(toDo);
+
+            fillView(toDo);
         }
     }
 }

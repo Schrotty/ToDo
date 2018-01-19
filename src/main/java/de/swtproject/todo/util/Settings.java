@@ -17,14 +17,14 @@ import java.util.Properties;
 public class Settings {
 
     /**
-     * The loaded properties
-     */
-    private Properties properties = new Properties();
-
-    /**
      * The Singleton
      */
     private static Settings self = new Settings();
+
+    /**
+     * The loaded properties
+     */
+    private Properties properties = new Properties();
 
     /**
      * Constructor for new settings singleton.
@@ -35,16 +35,6 @@ public class Settings {
         } catch (IOException e) {
             System.err.println(e.getMessage());
         }
-    }
-
-    /**
-     * Get the value of a given property.
-     *
-     * @param key the property
-     * @return the loaded value
-     */
-    private String get(String key) {
-        return properties.getProperty(key);
     }
 
     /**
@@ -63,5 +53,15 @@ public class Settings {
      */
     public static String getDataDir() {
         return self.get("dataDir");
+    }
+
+    /**
+     * Get the value of a given property.
+     *
+     * @param key the property
+     * @return the loaded value
+     */
+    private String get(String key) {
+        return properties.getProperty(key);
     }
 }
