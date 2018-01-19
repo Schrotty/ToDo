@@ -7,6 +7,8 @@ import de.swtproject.todo.core.database.DatabaseManager;
 
 import javax.swing.*;
 import java.sql.SQLException;
+import java.util.Calendar;
+import java.util.Date;
 
 
 /**
@@ -152,7 +154,14 @@ public class CreateToDo extends javax.swing.JDialog {
             private boolean validateForm() {
                 boolean isValid = true;
 
-                if (dateToStartButton.getDate() != null && deadlineButton.getDate() != null) {
+                if (dateToStartButton.getDate() != null) {
+                    boolean sameDay = dateToStartButton.getCalendar().get(Calendar.YEAR) == Calendar.getInstance().get(Calendar.YEAR) &&
+                            dateToStartButton.getCalendar().get(Calendar.DAY_OF_YEAR) == Calendar.getInstance().get(Calendar.DAY_OF_YEAR);
+
+                    if (!sameDay) isValid = dateToStartButton.getDate().after(new Date());
+                }
+
+                if (dateToStartButton.getDate() != null && deadlineButton.getDate() != null && isValid) {
                     isValid = dateToStartButton.getDate().before(deadlineButton.getDate());
                 }
 

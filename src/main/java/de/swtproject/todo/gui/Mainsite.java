@@ -476,12 +476,7 @@ public class Mainsite extends javax.swing.JFrame {
         createToDoMenu.setFont(new java.awt.Font("Tahoma", 1, fontsize));
         createToDoMenu.setIcon(new javax.swing.ImageIcon(Objects.requireNonNull(getClass().getClassLoader().getResource("icon/ToDoCreate.png")))); // NOI18N
         createToDoMenu.setText("Create ToDo");
-        createToDoMenu.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                createToDoMenuActionPerformed(evt);
-
-            }
-        });
+        createToDoMenu.addActionListener(this::createToDoMenuActionPerformed);
         menuCreate.add(createToDoMenu);
 
         createMilestoneMenu.setFont(new java.awt.Font("Tahoma", 1, fontsize));
