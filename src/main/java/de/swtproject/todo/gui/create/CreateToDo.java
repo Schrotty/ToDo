@@ -1,48 +1,101 @@
-package de.swtproject.todo.GUI.TODOGUI;
+package de.swtproject.todo.gui.create;
 
 import com.toedter.calendar.JDateChooser;
 import de.swtproject.todo.core.IntervalType;
-import javax.swing.*;
+
+import java.awt.event.ActionListener;
 
 
+/**
+ * The type Create to do.
+ */
 public class CreateToDo extends javax.swing.JDialog {
 
-    protected Mainsite mainsite;
+    /**
+     * The Mainsite.
+     */
+    private static final int fontsize = 16;
 
-    // Variables declaration - do not modify
+    /**
+     * The Cancel button.
+     */
+// Variables declaration - do not modify
     private javax.swing.JButton cancelButton;
+    /**
+     * The Create to do label.
+     */
     private javax.swing.JLabel createToDoLabel;
-    private JDateChooser dateToStartButton;
-    private JDateChooser deadlineButton;
+    /**
+     * The Date to start button.
+     */
+    JDateChooser dateToStartButton;
+    /**
+     * The Deadline button.
+     */
+    JDateChooser deadlineButton;
+    /**
+     * The Description panel.
+     */
     private javax.swing.JPanel descriptionPanel;
+    /**
+     * The Description scroll pane.
+     */
     private javax.swing.JScrollPane descriptionScrollPane;
-    private javax.swing.JTextArea descriptionTextArea;
-    private javax.swing.JComboBox<String> intervalComboBox;
+    /**
+     * The Description text area.
+     */
+    javax.swing.JTextArea descriptionTextArea;
+    /**
+     * The Interval combo box.
+     */
+    javax.swing.JComboBox<String> intervalComboBox;
+    /**
+     * The Interval panel.
+     */
     private javax.swing.JPanel intervalPanel;
+    /**
+     * The Mainpanel.
+     */
     private javax.swing.JPanel mainpanel;
+    /**
+     * The Milestone panel.
+     */
     private javax.swing.JPanel milestonePanel;
+    /**
+     * The Milestones options combo box.
+     */
     private javax.swing.JComboBox<String> milestonesOptionsComboBox;
+    /**
+     * The Submit button.
+     */
     private javax.swing.JButton submitButton;
+    /**
+     * The Title panel.
+     */
     private javax.swing.JPanel titlePanel;
-    private javax.swing.JTextField titleTextField;
+    /**
+     * The Title text field.
+     */
+    javax.swing.JTextField titleTextField;
+    /**
+     * The Todo create label.
+     */
     private javax.swing.JLabel todoCreateLabel;
     // End of variables declaration
 
-
-
-    public CreateToDo() {
+    /**
+     * Instantiates a new Create to do.
+     */
+    CreateToDo() {
         initComponents();
-
-
     }
 
-
-
-
+    /**
+     * Init components.
+     */
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">
     private void initComponents() {
-
         mainpanel = new javax.swing.JPanel();
         createToDoLabel = new javax.swing.JLabel();
         cancelButton = new javax.swing.JButton();
@@ -62,27 +115,15 @@ public class CreateToDo extends javax.swing.JDialog {
 
         setTitle("Create ToDo");
 
-
-
-        cancelButton.setFont(new java.awt.Font("Tahoma", 1, mainsite.fontsize));
+        cancelButton.setFont(new java.awt.Font("Tahoma", 1, fontsize));
         cancelButton.setText("Cancel");
         cancelButton.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED, null, new java.awt.Color(102, 102, 102), null, null));
-        cancelButton.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                cancelButtonActionPerformed(evt);
-            }
-        });
 
-        submitButton.setFont(new java.awt.Font("Tahoma", 1, mainsite.fontsize));
+        submitButton.setFont(new java.awt.Font("Tahoma", 1, fontsize));
         submitButton.setText("Submit");
         submitButton.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED, new java.awt.Color(255, 255, 255), new java.awt.Color(102, 102, 102), new java.awt.Color(255, 255, 255), new java.awt.Color(255, 255, 255)));
-        submitButton.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                submitButtonActionPerformed(evt);
-            }
-        });
 
-        titlePanel.setBorder(javax.swing.BorderFactory.createTitledBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED, null, new java.awt.Color(102, 102, 102), null, null), "Title*", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 1, mainsite.fontsize) ));
+        titlePanel.setBorder(javax.swing.BorderFactory.createTitledBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED, null, new java.awt.Color(102, 102, 102), null, null), "Title*", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 1, fontsize)));
 
         titleTextField.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         titleTextField.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.LOWERED));
@@ -100,12 +141,16 @@ public class CreateToDo extends javax.swing.JDialog {
 
         descriptionPanel.setBorder(javax.swing.BorderFactory.createTitledBorder
                 (new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED, null, new java.awt.Color
-                        (102, 102, 102), null, null),
-                        "Description" , javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION,
-                        new java.awt.Font("Tahoma", 1, mainsite.fontsize) ));
+                                (102, 102, 102), null, null),
+                        "Description", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION,
+                        new java.awt.Font("Tahoma", 1, fontsize)));
 
+        descriptionTextArea.setFont(new java.awt.Font("Tahoma", 0, fontsize));
         descriptionTextArea.setColumns(20);
         descriptionTextArea.setRows(5);
+        descriptionTextArea.setWrapStyleWord(true);
+        descriptionTextArea.setLineWrap(true);
+
         descriptionScrollPane.setViewportView(descriptionTextArea);
 
         javax.swing.GroupLayout descriptionPanelLayout = new javax.swing.GroupLayout(descriptionPanel);
@@ -121,12 +166,12 @@ public class CreateToDo extends javax.swing.JDialog {
         );
 
         milestonePanel.setBorder(javax.swing.BorderFactory.createTitledBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED,
-                null, new java.awt.Color(102, 102, 102), null, null),
+                        null, new java.awt.Color(102, 102, 102), null, null),
                 "Milestone", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font
-                        ("Tahoma", 1, mainsite.fontsize) ));
+                        ("Tahoma", 1, fontsize)));
 
-        milestonesOptionsComboBox.setFont(new java.awt.Font("Tahoma", 1, mainsite.fontsize));
-        milestonesOptionsComboBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Nothing Selected" }));
+        milestonesOptionsComboBox.setFont(new java.awt.Font("Tahoma", 1, fontsize));
+        milestonesOptionsComboBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[]{"None"}));
         milestonesOptionsComboBox.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED,
                 null, new java.awt.Color(102, 102, 102), null, null));
 
@@ -142,12 +187,12 @@ public class CreateToDo extends javax.swing.JDialog {
         );
 
         intervalPanel.setBorder(javax.swing.BorderFactory.createTitledBorder(new javax.swing.border.SoftBevelBorder
-                (javax.swing.border.BevelBorder.RAISED, null, new java.awt.Color(102, 102, 102),
-                        null, null), "Interval", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION,
-                javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 1, mainsite.fontsize) ));
+                        (javax.swing.border.BevelBorder.RAISED, null, new java.awt.Color(102, 102, 102),
+                                null, null), "Interval", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION,
+                javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 1, fontsize)));
 
-        intervalComboBox.setFont(new java.awt.Font("Tahoma", 1, mainsite.fontsize));
-        intervalComboBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Nothing Selected" }));
+        intervalComboBox.setFont(new java.awt.Font("Tahoma", 1, fontsize));
+        //intervalComboBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Nothing Selected" }));
         intervalComboBox.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED,
                 null, new java.awt.Color(102, 102, 102), null, null));
 
@@ -164,16 +209,16 @@ public class CreateToDo extends javax.swing.JDialog {
 
         dateToStartButton.setBorder(javax.swing.BorderFactory.createTitledBorder
                 (new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED,
-                        null, new java.awt.Color(102, 102, 102),
-                        null, null), "Date to Start", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION,
-                        javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 1, mainsite.fontsize) ));
+                                null, new java.awt.Color(102, 102, 102),
+                                null, null), "Date to Start", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION,
+                        javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 1, fontsize)));
 
 
         deadlineButton.setBorder(javax.swing.BorderFactory.createTitledBorder
                 (new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED,
                                 null, new java.awt.Color(102, 102, 102),
                                 null, null), "Deadline", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION,
-                        javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 1, mainsite.fontsize) ));
+                        javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 1, fontsize)));
 
 
         javax.swing.GroupLayout mainpanelLayout = new javax.swing.GroupLayout(mainpanel);
@@ -241,17 +286,11 @@ public class CreateToDo extends javax.swing.JDialog {
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(mainpanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
-        this.setDefaultCloseOperation(JDialog.DO_NOTHING_ON_CLOSE);
-        this.addWindowListener(new java.awt.event.WindowAdapter() {
-            @Override
-            public void windowClosing(java.awt.event.WindowEvent windowEvent) {
-            windowEvent.getWindow().dispose();
-            }
-        });
 
-        for(IntervalType intervalType : IntervalType.values()){
-            String inter = String.format("%s%s", intervalType.toString().substring(0,1), intervalType.toString().substring(1).toLowerCase());
-            intervalComboBox.addItem(inter);
+        for (IntervalType intervalType : IntervalType.values()) {
+            intervalComboBox.addItem(
+                    String.format("%s%s", intervalType.toString().substring(0, 1), intervalType.toString().substring(1).toLowerCase())
+            );
         }
 
 
@@ -259,14 +298,11 @@ public class CreateToDo extends javax.swing.JDialog {
         setLocationRelativeTo(null);
     }// </editor-fold>
 
-    private void cancelButtonActionPerformed(java.awt.event.ActionEvent evt) {
-        this.dispose();
+    public void setCancelButtonListener(ActionListener e) {
+        cancelButton.addActionListener(e);
     }
 
-    private void submitButtonActionPerformed(java.awt.event.ActionEvent evt) {
-
+    public void setSubmitButtonListener(ActionListener e) {
+        submitButton.addActionListener(e);
     }
-
-
-
 }
